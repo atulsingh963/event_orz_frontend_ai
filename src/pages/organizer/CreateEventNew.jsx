@@ -382,82 +382,125 @@ const CreateEventNew = () => {
     </div>
   );
 
-  const renderStep4 = () => (
-    <div className="form-step">
-      <h2>Event Add-ons (Optional)</h2>
-      <p className="step-description">Enhance your event with additional services and amenities</p>
+  const renderStep4 = () => {
+    const selectedVenue = venues.find(v => v._id === formData.venue);
+    const venueAddOns = selectedVenue?.availableAddOns || [];
 
-      <div className="addon-input-section">
-        <div className="addon-form-group">
-          <label>Add-on Name</label>
-          <input
-            type="text"
-            value={addonInput.name}
-            onChange={(e) => setAddonInput({ ...addonInput, name: e.target.value })}
-            placeholder="e.g., Sound System, Catering, Decorations"
-            className="input-large"
-          />
-        </div>
+    const handleToggleAddon = (venueAddon) => {
+      const existingIndex = formData.addOns.findIndex(a => a.name === venueAddon.name);
 
-        <div className="addon-form-group">
-          <label>Price ($)</label>
-          <input
-            type="number"
-            value={addonInput.price}
-            onChange={(e) => setAddonInput({ ...addonInput, price: parseFloat(e.target.value) })}
-            min="0"
-            className="input-large"
-          />
-        </div>
+      if (existingIndex >= 0) {
+        // Remove if already selected
+        setFormData({
+          ...formData,
+          addOns: formData.addOns.filter((_, i) => i !== existingIndex)
+        });
+      } else {
+        // Add with default quantity of 1
+        setFormData({
+          ...formData,
+          addOns: [...formData.addOns, { ...venueAddon, quantity: 1 }]
+        });
+      }
+    };
 
-        <div className="addon-form-group">
-          <label>Quantity</label>
-          <input
-            type="number"
-            value={addonInput.quantity}
-            onChange={(e) => setAddonInput({ ...addonInput, quantity: parseInt(e.target.value) })}
-            min="1"
-            className="input-large"
-          />
-        </div>
+    const updateQuantity = (index, newQuantity) => {
+      const updatedAddOns = [...formData.addOns];
+      updatedAddOns[index].quantity = parseInt(newQuantity) || 1;
+      setFormData({ ...formData, addOns: updatedAddOns });
+    };
 
-        <div className="addon-form-group full-width">
-          <label>Description</label>
-          <input
-            type="text"
-            value={addonInput.description}
-            onChange={(e) => setAddonInput({ ...addonInput, description: e.target.value })}
-            placeholder="Describe the add-on service"
-            className="input-large"
-          />
-        </div>
+    const isSelected = (addonName) => {
+      return formData.addOns.some(a => a.name === addonName);
+    };
 
-        <button type="button" onClick={handleAddAddon} className="btn-add-item">
-          + Add Add-on
-        </button>
-      </div>
+    const getTotalCost = () => {
+      return formData.addOns.reduce((total, addon) => total + (addon.price * addon.quantity), 0);
+    };
 
-      <div className="added-items-list">
-        <h3>Selected Add-ons ({formData.addOns.length})</h3>
-        {formData.addOns.length === 0 ? (
-          <p className="empty-state-text">No add-ons selected. You can skip this step if not needed.</p>
-        ) : (
-          <div className="items-grid">
-            {formData.addOns.map((addon, index) => (
-              <div key={index} className="item-card">
-                <div className="item-header">
-                  <h4>{addon.name}</h4>
-                  <button onClick={() => handleRemoveAddon(index)} className="btn-remove-item">×</button>
-                </div>
-                <p className="item-detail">Price: ${addon.price} × {addon.quantity} = ${addon.price * addon.quantity}</p>
-                {addon.description && <p className="item-description">{addon.description}</p>}
-              </div>
-            ))}
+    return (
+      <div className="form-step">
+        <h2>Event Add-ons (Optional)</h2>
+        <p className="step-description">
+          Select from {selectedVenue?.name}'s available add-on services
+        </p>
+
+        {venueAddOns.length === 0 ? (
+          <div className="empty-state-text">
+            <p>This venue doesn't have any add-ons available. You can skip this step.</p>
           </div>
+        ) : (
+          <>
+            <div className="addons-catalog">
+              <h3>Available Add-ons</h3>
+              <div className="addons-grid">
+                {venueAddOns.map((addon, index) => (
+                  <div
+                    key={index}
+                    className={`addon-catalog-card ${isSelected(addon.name) ? 'selected' : ''}`}
+                    onClick={() => handleToggleAddon(addon)}
+                  >
+                    {isSelected(addon.name) && (
+                      <div className="addon-selected-badge">✓</div>
+                    )}
+                    <div className="addon-category-tag">{addon.category}</div>
+                    <h4>{addon.name}</h4>
+                    <p className="addon-catalog-desc">{addon.description}</p>
+                    <div className="addon-catalog-price">${addon.price}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="selected-addons-summary">
+              <h3>Selected Add-ons ({formData.addOns.length})</h3>
+              {formData.addOns.length === 0 ? (
+                <p className="empty-state-text">No add-ons selected yet. Click on add-ons above to select them.</p>
+              ) : (
+                <>
+                  <div className="selected-addons-list">
+                    {formData.addOns.map((addon, index) => (
+                      <div key={index} className="selected-addon-item">
+                        <div className="selected-addon-info">
+                          <h4>{addon.name}</h4>
+                          <p>{addon.description}</p>
+                        </div>
+                        <div className="selected-addon-controls">
+                          <label>Qty:</label>
+                          <input
+                            type="number"
+                            min="1"
+                            value={addon.quantity}
+                            onChange={(e) => updateQuantity(index, e.target.value)}
+                            className="quantity-input"
+                            onClick={(e) => e.stopPropagation()}
+                          />
+                          <span className="addon-subtotal">${addon.price * addon.quantity}</span>
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleRemoveAddon(index);
+                            }}
+                            className="btn-remove-small"
+                          >
+                            ×
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="addons-total">
+                    <span>Total Add-ons Cost:</span>
+                    <span className="total-amount">${getTotalCost()}</span>
+                  </div>
+                </>
+              )}
+            </div>
+          </>
         )}
       </div>
-    </div>
-  );
+    );
+  };
 
   return (
     <div className="create-event-fullscreen">

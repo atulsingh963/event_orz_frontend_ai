@@ -449,6 +449,232 @@ textarea.input-large {
   transform: none !important;
 }
 
+/* Add-ons Catalog */
+.addons-catalog {
+  margin-bottom: 3rem;
+}
+
+.addons-catalog h3 {
+  color: #1a1a2e;
+  font-size: 1.4rem;
+  margin-bottom: 1.5rem;
+}
+
+.addons-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.25rem;
+}
+
+.addon-catalog-card {
+  position: relative;
+  background: white;
+  border: 3px solid #e9ecef;
+  border-radius: 12px;
+  padding: 1.5rem;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.addon-catalog-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  border-color: #667eea;
+}
+
+.addon-catalog-card.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+}
+
+.addon-selected-badge {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  background: #28a745;
+  color: white;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.1rem;
+  box-shadow: 0 2px 6px rgba(40, 167, 69, 0.3);
+}
+
+.addon-category-tag {
+  display: inline-block;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 0.35rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 1rem;
+}
+
+.addon-catalog-card h4 {
+  color: #1a1a2e;
+  font-size: 1.1rem;
+  margin-bottom: 0.75rem;
+  font-weight: 700;
+}
+
+.addon-catalog-desc {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  line-height: 1.5;
+  min-height: 40px;
+}
+
+.addon-catalog-price {
+  color: #667eea;
+  font-weight: 700;
+  font-size: 1.3rem;
+}
+
+/* Selected Add-ons Summary */
+.selected-addons-summary {
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 2rem;
+}
+
+.selected-addons-summary h3 {
+  color: #1a1a2e;
+  font-size: 1.4rem;
+  margin-bottom: 1.5rem;
+}
+
+.selected-addons-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.selected-addon-item {
+  background: white;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  padding: 1.25rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  transition: all 0.2s;
+}
+
+.selected-addon-item:hover {
+  border-color: #667eea;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.selected-addon-info {
+  flex: 1;
+}
+
+.selected-addon-info h4 {
+  color: #1a1a2e;
+  font-size: 1rem;
+  margin-bottom: 0.4rem;
+  font-weight: 600;
+}
+
+.selected-addon-info p {
+  color: #666;
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+.selected-addon-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.selected-addon-controls label {
+  color: #666;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.quantity-input {
+  width: 70px;
+  padding: 0.5rem;
+  border: 2px solid #e9ecef;
+  border-radius: 6px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.2s;
+}
+
+.quantity-input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.addon-subtotal {
+  color: #667eea;
+  font-weight: 700;
+  font-size: 1.1rem;
+  min-width: 70px;
+  text-align: right;
+}
+
+.btn-remove-small {
+  background: #dc3545;
+  color: white;
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-remove-small:hover {
+  background: #c82333;
+  transform: scale(1.1);
+}
+
+.addons-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  background: white;
+  border: 3px solid #667eea;
+  border-radius: 8px;
+  margin-top: 1rem;
+}
+
+.addons-total span:first-child {
+  color: #1a1a2e;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.total-amount {
+  color: #667eea;
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .create-event-container {
@@ -466,7 +692,8 @@ textarea.input-large {
   }
 
   .venues-selection-grid,
-  .items-grid {
+  .items-grid,
+  .addons-grid {
     grid-template-columns: 1fr;
   }
 
@@ -492,5 +719,21 @@ textarea.input-large {
 
   .btn-nav {
     flex: 1;
+  }
+
+  .selected-addon-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .selected-addon-controls {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .addons-total {
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
   }
 }

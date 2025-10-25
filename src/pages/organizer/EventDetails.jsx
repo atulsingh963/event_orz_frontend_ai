@@ -184,15 +184,31 @@ const EventDetails = () => {
 
             {event.addOns && event.addOns.length > 0 && (
               <div className="details-card">
-                <h2>Add-ons ({event.addOns.length})</h2>
+                <h2>Event Add-ons</h2>
+                <p className="addons-source-info">Selected from {event.venue?.name}</p>
                 <div className="addons-list">
                   {event.addOns.map((addon, index) => (
                     <div key={index} className="addon-item">
-                      <div className="addon-name">{addon.name}</div>
-                      <div className="addon-price">${addon.price} × {addon.quantity}</div>
+                      <div className="addon-header">
+                        <div className="addon-name">{addon.name}</div>
+                        {addon.category && (
+                          <span className="addon-category-badge">{addon.category}</span>
+                        )}
+                      </div>
                       {addon.description && <div className="addon-desc">{addon.description}</div>}
+                      <div className="addon-pricing">
+                        <span className="addon-unit-price">${addon.price} each</span>
+                        <span className="addon-quantity">Qty: {addon.quantity}</span>
+                        <span className="addon-total-price">${addon.price * addon.quantity}</span>
+                      </div>
                     </div>
                   ))}
+                </div>
+                <div className="addons-summary">
+                  <span>Total Add-ons Cost:</span>
+                  <span className="addons-total-amount">
+                    ${event.addOns.reduce((total, addon) => total + (addon.price * addon.quantity), 0)}
+                  </span>
                 </div>
               </div>
             )}

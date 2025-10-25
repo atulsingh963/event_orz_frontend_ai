@@ -790,35 +790,114 @@ body {
   margin-top: 0.5rem;
 }
 
+.addons-source-info {
+  color: #666;
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+  font-style: italic;
+}
+
 .addons-list {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 .addon-item {
   background: #f8f9fa;
-  padding: 1rem;
+  padding: 1.25rem;
   border-radius: 8px;
+  border: 2px solid #e9ecef;
+  transition: all 0.2s;
+}
+
+.addon-item:hover {
+  border-color: #667eea;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.addon-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
 }
 
 .addon-name {
   font-weight: 600;
   color: #1a1a2e;
-  margin-bottom: 0.25rem;
+  font-size: 1.05rem;
 }
 
-.addon-price {
-  color: #667eea;
+.addon-category-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.7rem;
   font-weight: 600;
-  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .addon-desc {
   color: #666;
   font-size: 0.9rem;
-  margin-top: 0.5rem;
-  font-style: italic;
+  margin-bottom: 0.75rem;
+  line-height: 1.5;
+}
+
+.addon-pricing {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid #e9ecef;
+}
+
+.addon-unit-price {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.addon-quantity {
+  color: #666;
+  font-size: 0.9rem;
+  padding: 0.25rem 0.75rem;
+  background: white;
+  border-radius: 6px;
+}
+
+.addon-total-price {
+  margin-left: auto;
+  color: #667eea;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.addons-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem;
+  background: white;
+  border: 3px solid #667eea;
+  border-radius: 8px;
+  margin-top: 1rem;
+}
+
+.addons-summary span:first-child {
+  color: #1a1a2e;
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.addons-total-amount {
+  color: #667eea;
+  font-size: 1.6rem;
+  font-weight: 700;
 }
 
 .manager-info {
