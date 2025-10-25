@@ -8,7 +8,8 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 
 import OrganizerDashboard from './pages/organizer/OrganizerDashboard';
-import CreateEvent from './pages/organizer/CreateEvent';
+import CreateEventNew from './pages/organizer/CreateEventNew';
+import EventDetails from './pages/organizer/EventDetails';
 
 import ManagerDashboard from './pages/manager/ManagerDashboard';
 import ManageTalents from './pages/manager/ManageTalents';
@@ -44,7 +45,15 @@ function App() {
                 path="/organizer/create-event"
                 element={
                   <PrivateRoute roles={['eventOrganizer']}>
-                    <CreateEvent />
+                    <CreateEventNew />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/organizer/events/:id"
+                element={
+                  <PrivateRoute roles={['eventOrganizer']}>
+                    <EventDetails />
                   </PrivateRoute>
                 }
               />
