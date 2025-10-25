@@ -86,7 +86,7 @@ const Home = () => {
                       <span>{venue.name.charAt(0)}</span>
                     </div>
                   )}
-                  <div className="venue-price">${venue.pricePerDay}</div>
+                  <div className="venue-price">₹{venue.pricePerDay}</div>
                 </div>
                 <div className="venue-info">
                   <h3 className="venue-name">{venue.name}</h3>

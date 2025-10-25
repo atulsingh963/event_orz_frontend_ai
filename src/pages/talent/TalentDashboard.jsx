@@ -64,7 +64,7 @@ const TalentDashboard = () => {
                     <p><strong>Time:</strong> {invitation.event?.startTime} - {invitation.event?.endTime}</p>
                     <p><strong>From:</strong> {invitation.invitedBy?.name}</p>
                     {invitation.compensation && (
-                      <p><strong>Compensation:</strong> ${invitation.compensation.amount}</p>
+                      <p><strong>Compensation:</strong> ₹{invitation.compensation.amount}</p>
                     )}
                     {invitation.message && (
                       <p><strong>Message:</strong> {invitation.message}</p>

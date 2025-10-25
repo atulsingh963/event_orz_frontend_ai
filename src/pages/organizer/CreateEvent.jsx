@@ -137,7 +137,7 @@ const CreateEvent = () => {
             <option value="">Select a venue</option>
             {venues.map(venue => (
               <option key={venue._id} value={venue._id}>
-                {venue.name} - {venue.location.city} (${venue.pricePerDay}/day)
+                {venue.name} - {venue.location.city} (₹{venue.pricePerDay}/day)
               </option>
             ))}
           </select>

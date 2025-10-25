@@ -160,7 +160,7 @@ const EventDetails = () => {
               </div>
               <div className="info-item">
                 <strong>Price:</strong>
-                <p>${event.venue?.pricePerDay}/day</p>
+                <p>₹{event.venue?.pricePerDay}/day</p>
               </div>
             </div>
 
@@ -169,15 +169,15 @@ const EventDetails = () => {
               <div className="budget-breakdown">
                 <div className="budget-item">
                   <span>Venue:</span>
-                  <span>${event.budget?.venuePrice || 0}</span>
+                  <span>₹{event.budget?.venuePrice || 0}</span>
                 </div>
                 <div className="budget-item">
                   <span>Add-ons:</span>
-                  <span>${event.budget?.addOnsPrice || 0}</span>
+                  <span>₹{event.budget?.addOnsPrice || 0}</span>
                 </div>
                 <div className="budget-item total">
                   <span>Total:</span>
-                  <span>${event.budget?.totalPrice || 0}</span>
+                  <span>₹{event.budget?.totalPrice || 0}</span>
                 </div>
               </div>
             </div>
@@ -197,9 +197,9 @@ const EventDetails = () => {
                       </div>
                       {addon.description && <div className="addon-desc">{addon.description}</div>}
                       <div className="addon-pricing">
-                        <span className="addon-unit-price">${addon.price} each</span>
+                        <span className="addon-unit-price">₹{addon.price} each</span>
                         <span className="addon-quantity">Qty: {addon.quantity}</span>
-                        <span className="addon-total-price">${addon.price * addon.quantity}</span>
+                        <span className="addon-total-price">₹{addon.price * addon.quantity}</span>
                       </div>
                     </div>
                   ))}
@@ -207,7 +207,7 @@ const EventDetails = () => {
                 <div className="addons-summary">
                   <span>Total Add-ons Cost:</span>
                   <span className="addons-total-amount">
-                    ${event.addOns.reduce((total, addon) => total + (addon.price * addon.quantity), 0)}
+                    ₹{event.addOns.reduce((total, addon) => total + (addon.price * addon.quantity), 0)}
                   </span>
                 </div>
               </div>

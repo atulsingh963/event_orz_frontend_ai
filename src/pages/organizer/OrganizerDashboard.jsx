@@ -67,7 +67,7 @@ const OrganizerDashboard = () => {
                   <p><strong>Date:</strong> {new Date(event.eventDate).toLocaleDateString()}</p>
                   <p><strong>Time:</strong> {event.startTime} - {event.endTime}</p>
                   <p><strong>Venue:</strong> {event.venue?.name}</p>
-                  <p><strong>Budget:</strong> ${event.budget?.totalPrice || 0}</p>
+                  <p><strong>Budget:</strong> ₹{event.budget?.totalPrice || 0}</p>
                   {event.eventManager && (
                     <p><strong>Manager:</strong> {event.eventManager.name}</p>
                   )}

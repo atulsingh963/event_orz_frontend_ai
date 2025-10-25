@@ -300,7 +300,7 @@ const CreateEventNew = () => {
                 <h3>{venue.name}</h3>
                 <p className="venue-location">📍 {venue.location.city}, {venue.location.state}</p>
                 <p className="venue-capacity">👥 Capacity: {venue.capacity} people</p>
-                <p className="venue-price">${venue.pricePerDay}/day</p>
+                <p className="venue-price">₹{venue.pricePerDay}/day</p>
               </div>
             </div>
           ))}
@@ -309,7 +309,7 @@ const CreateEventNew = () => {
         {selectedVenue && (
           <div className="selected-venue-summary">
             <h3>Selected Venue: {selectedVenue.name}</h3>
-            <p>Price: ${selectedVenue.pricePerDay}/day</p>
+            <p>Price: ₹{selectedVenue.pricePerDay}/day</p>
           </div>
         )}
       </div>
@@ -446,7 +446,7 @@ const CreateEventNew = () => {
                     <div className="addon-category-tag">{addon.category}</div>
                     <h4>{addon.name}</h4>
                     <p className="addon-catalog-desc">{addon.description}</p>
-                    <div className="addon-catalog-price">${addon.price}</div>
+                    <div className="addon-catalog-price">₹{addon.price}</div>
                   </div>
                 ))}
               </div>
@@ -475,7 +475,7 @@ const CreateEventNew = () => {
                             className="quantity-input"
                             onClick={(e) => e.stopPropagation()}
                           />
-                          <span className="addon-subtotal">${addon.price * addon.quantity}</span>
+                          <span className="addon-subtotal">₹{addon.price * addon.quantity}</span>
                           <button
                             onClick={(e) => {
                               e.stopPropagation();
@@ -491,7 +491,7 @@ const CreateEventNew = () => {
                   </div>
                   <div className="addons-total">
                     <span>Total Add-ons Cost:</span>
-                    <span className="total-amount">${getTotalCost()}</span>
+                    <span className="total-amount">₹{getTotalCost()}</span>
                   </div>
                 </>
               )}
