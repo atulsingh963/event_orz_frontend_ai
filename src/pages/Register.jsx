@@ -7,9 +7,7 @@ const Register = () => {
     name: '',
     email: '',
     password: '',
-    role: 'talent',
-    phone: '',
-    skills: ''
+    role: 'talent'
   });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -29,24 +27,19 @@ const Register = () => {
     setError('');
     setLoading(true);
 
-    const userData = {
-      ...formData,
-      skills: formData.role === 'talent' ? formData.skills.split(',').map(s => s.trim()) : undefined
-    };
-
-    const result = await register(userData);
+    const result = await register(formData);
 
     if (result.success) {
       const user = JSON.parse(localStorage.getItem('user'));
       switch (user.role) {
         case 'eventOrganizer':
-          navigate('/organizer/dashboard');
+          navigate('/');
           break;
         case 'eventManager':
-          navigate('/manager/dashboard');
+          navigate('/profile');
           break;
         case 'talent':
-          navigate('/talent/dashboard');
+          navigate('/profile');
           break;
         default:
           navigate('/');
@@ -102,37 +95,16 @@ const Register = () => {
           </div>
 
           <div className="form-group">
-            <label>Phone</label>
-            <input
-              type="tel"
-              name="phone"
-              value={formData.phone}
-              onChange={handleChange}
-              placeholder="Enter your phone number"
-            />
-          </div>
-
-          <div className="form-group">
             <label>Role</label>
             <select name="role" value={formData.role} onChange={handleChange} required>
               <option value="talent">Talent</option>
               <option value="eventManager">Event Manager</option>
               <option value="eventOrganizer">Event Organizer</option>
             </select>
+            <small style={{ display: 'block', marginTop: '0.5rem', color: '#666' }}>
+              You can update your profile and add skills after registration
+            </small>
           </div>
-
-          {formData.role === 'talent' && (
-            <div className="form-group">
-              <label>Skills (comma-separated)</label>
-              <input
-                type="text"
-                name="skills"
-                value={formData.skills}
-                onChange={handleChange}
-                placeholder="e.g., Singer, Dancer, Host"
-              />
-            </div>
-          )}
 
           <button type="submit" className="btn-primary" disabled={loading}>
             {loading ? 'Registering...' : 'Register'}

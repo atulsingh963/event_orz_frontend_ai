@@ -14,6 +14,7 @@ import ManagerDashboard from './pages/manager/ManagerDashboard';
 import ManageTalents from './pages/manager/ManageTalents';
 
 import TalentDashboard from './pages/talent/TalentDashboard';
+import Profile from './pages/Profile';
 
 import './App.css';
 import './styles/home.css';
@@ -72,6 +73,16 @@ function App() {
                 element={
                   <PrivateRoute roles={['talent']}>
                     <TalentDashboard />
+                  </PrivateRoute>
+                }
+              />
+
+              {/* Profile Route - Available for all authenticated users */}
+              <Route
+                path="/profile"
+                element={
+                  <PrivateRoute>
+                    <Profile />
                   </PrivateRoute>
                 }
               />

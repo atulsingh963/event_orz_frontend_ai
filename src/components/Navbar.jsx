@@ -30,7 +30,7 @@ const Navbar = () => {
       <div className="nav-container">
         <Link to="/" className="nav-brand">
           <span className="brand-icon">📅</span>
-          <span className="brand-text">eventFlex</span>
+          <span className="brand-text">Event Organizer</span>
         </Link>
 
         <div className="nav-center">
@@ -53,10 +53,16 @@ const Navbar = () => {
                 </>
               )}
               {user.role === 'eventManager' && (
-                <Link to={getDashboardLink()} className="nav-link">Dashboard</Link>
+                <>
+                  <Link to={getDashboardLink()} className="nav-link">Dashboard</Link>
+                  <Link to="/profile" className="nav-link">Profile</Link>
+                </>
               )}
               {user.role === 'talent' && (
-                <Link to={getDashboardLink()} className="nav-link">Dashboard</Link>
+                <>
+                  <Link to={getDashboardLink()} className="nav-link">Dashboard</Link>
+                  <Link to="/profile" className="nav-link">Profile</Link>
+                </>
               )}
               <span className="user-info">
                 {user.name}
