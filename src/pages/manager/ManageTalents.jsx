@@ -85,6 +85,7 @@ const ManageTalents = () => {
   if (!event) return <div className="loading">Loading...</div>;
 
   return (
+    <div style={{ padding: '2rem' }}>
     <div className="manage-talents-container">
       <h1>Manage Talents - {event.title}</h1>
 
@@ -203,6 +204,7 @@ const ManageTalents = () => {
           </div>
         </div>
       )}
+    </div>
     </div>
   );
 };

@@ -75,6 +75,7 @@ const CreateEvent = () => {
   };
 
   return (
+    <div style={{ padding: '2rem' }}>
     <div className="form-container">
       <h1>Create New Event</h1>
 
@@ -228,6 +229,7 @@ const CreateEvent = () => {
           </button>
         </div>
       </form>
+    </div>
     </div>
   );
 };

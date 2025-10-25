@@ -7,7 +7,7 @@ const Navbar = () => {
 
   const handleLogout = () => {
     logout();
-    navigate('/login');
+    navigate('/');
   };
 
   const getDashboardLink = () => {
@@ -15,7 +15,7 @@ const Navbar = () => {
 
     switch (user.role) {
       case 'eventOrganizer':
-        return '/organizer/dashboard';
+        return '/organizer/dashboard'; // Event organizers see home page, but this is for "My Events"
       case 'eventManager':
         return '/manager/dashboard';
       case 'talent':
@@ -29,15 +29,37 @@ const Navbar = () => {
     <nav className="navbar">
       <div className="nav-container">
         <Link to="/" className="nav-brand">
-          Event Organizer
+          <span className="brand-icon">📅</span>
+          <span className="brand-text">eventFlex</span>
         </Link>
+
+        <div className="nav-center">
+          {isAuthenticated && user.role === 'eventOrganizer' && (
+            <Link to="/" className="nav-link">
+              <span className="search-icon">🔍</span> Search
+            </Link>
+          )}
+        </div>
 
         <div className="nav-links">
           {isAuthenticated ? (
             <>
-              <Link to={getDashboardLink()}>Dashboard</Link>
+              {user.role === 'eventOrganizer' && (
+                <>
+                  <Link to="/organizer/create-event" className="btn-list-space">
+                    List Your Space
+                  </Link>
+                  <Link to="/organizer/dashboard" className="nav-link">My Events</Link>
+                </>
+              )}
+              {user.role === 'eventManager' && (
+                <Link to={getDashboardLink()} className="nav-link">Dashboard</Link>
+              )}
+              {user.role === 'talent' && (
+                <Link to={getDashboardLink()} className="nav-link">Dashboard</Link>
+              )}
               <span className="user-info">
-                {user.name} ({user.role})
+                {user.name}
               </span>
               <button onClick={handleLogout} className="btn-logout">
                 Logout
@@ -45,8 +67,8 @@ const Navbar = () => {
             </>
           ) : (
             <>
-              <Link to="/login">Login</Link>
-              <Link to="/register">Register</Link>
+              <Link to="/login" className="nav-link">Login</Link>
+              <Link to="/register" className="btn-signup">Sign Up</Link>
             </>
           )}
         </div>

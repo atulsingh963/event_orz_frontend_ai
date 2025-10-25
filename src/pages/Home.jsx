@@ -1,60 +1,136 @@
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
+import { venueService } from '../services/venueService';
 
 const Home = () => {
-  const { isAuthenticated, user } = useAuth();
+  const [venues, setVenues] = useState([]);
+  const [searchData, setSearchData] = useState({
+    eventType: '',
+    location: ''
+  });
+
+  useEffect(() => {
+    fetchFeaturedVenues();
+  }, []);
+
+  const fetchFeaturedVenues = async () => {
+    try {
+      const data = await venueService.getVenues();
+      setVenues(data.slice(0, 6)); // Get first 6 venues
+    } catch (err) {
+      console.error('Failed to load venues', err);
+    }
+  };
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    // Filter venues based on search
+    const filtered = venues.filter(venue => {
+      const matchesLocation = searchData.location
+        ? venue.location.city.toLowerCase().includes(searchData.location.toLowerCase())
+        : true;
+      return matchesLocation;
+    });
+    setVenues(filtered);
+  };
 
   return (
-    <div className="home-container">
-      <div className="hero-section">
-        <h1>Event Organizer Platform</h1>
-        <p className="hero-subtitle">
-          Connecting Event Organizers, Managers, and Talents for Seamless Event Execution
-        </p>
+    <div className="home-container-new">
+      {/* Hero Section */}
+      <div className="hero-section-new">
+        <div className="hero-overlay">
+          <div className="hero-content">
+            <h1 className="hero-title">Flexible Venues.<br />Flexible Rates. FAST.</h1>
+            <p className="hero-subtitle">Find & Book Spaces for Your Creative Events</p>
 
-        {!isAuthenticated ? (
-          <div className="hero-actions">
-            <Link to="/register" className="btn-primary btn-large">
-              Get Started
-            </Link>
-            <Link to="/login" className="btn-secondary btn-large">
-              Login
-            </Link>
+            <form className="search-form" onSubmit={handleSearch}>
+              <input
+                type="text"
+                placeholder="What are you planning?"
+                className="search-input"
+                value={searchData.eventType}
+                onChange={(e) => setSearchData({ ...searchData, eventType: e.target.value })}
+              />
+              <input
+                type="text"
+                placeholder="Where? (Enter a city)"
+                className="search-input"
+                value={searchData.location}
+                onChange={(e) => setSearchData({ ...searchData, location: e.target.value })}
+              />
+              <button type="submit" className="search-button">
+                Search
+              </button>
+            </form>
           </div>
-        ) : (
-          <div className="hero-actions">
-            <Link
-              to={
-                user.role === 'eventOrganizer'
-                  ? '/organizer/dashboard'
-                  : user.role === 'eventManager'
-                  ? '/manager/dashboard'
-                  : '/talent/dashboard'
-              }
-              className="btn-primary btn-large"
-            >
-              Go to Dashboard
-            </Link>
-          </div>
-        )}
+        </div>
       </div>
 
-      <div className="features-section">
+      {/* Featured Spaces Section */}
+      <div className="featured-section">
+        <h2 className="featured-title">Featured Spaces</h2>
+        <div className="venues-grid">
+          {venues.length === 0 ? (
+            <div className="empty-venues">
+              <p>No venues available. Please add some venues first.</p>
+              <Link to="/login" className="btn-primary">Login to Add Venues</Link>
+            </div>
+          ) : (
+            venues.map((venue) => (
+              <Link to="/login" key={venue._id} className="venue-card">
+                <div className="venue-image">
+                  {venue.images && venue.images.length > 0 ? (
+                    <img src={venue.images[0]} alt={venue.name} />
+                  ) : (
+                    <div className="venue-placeholder">
+                      <span>{venue.name.charAt(0)}</span>
+                    </div>
+                  )}
+                  <div className="venue-price">${venue.pricePerDay}</div>
+                </div>
+                <div className="venue-info">
+                  <h3 className="venue-name">{venue.name}</h3>
+                  <p className="venue-location">
+                    {venue.location.city}, {venue.location.state}
+                  </p>
+                  <p className="venue-capacity">Capacity: {venue.capacity} people</p>
+                  {venue.amenities && venue.amenities.length > 0 && (
+                    <div className="venue-amenities">
+                      {venue.amenities.slice(0, 3).map((amenity, idx) => (
+                        <span key={idx} className="amenity-tag">{amenity}</span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </Link>
+            ))
+          )}
+        </div>
+      </div>
+
+      {/* How It Works Section */}
+      <div className="how-it-works-section">
         <h2>How It Works</h2>
-        <div className="features-grid">
-          <div className="feature-card">
-            <h3>Event Organizers</h3>
-            <p>Create events, book venues, invite managers, and manage the entire event lifecycle.</p>
+        <div className="steps-grid">
+          <div className="step-card">
+            <div className="step-number">1</div>
+            <h3>Search Venues</h3>
+            <p>Browse through our curated collection of event spaces</p>
           </div>
-
-          <div className="feature-card">
-            <h3>Event Managers</h3>
-            <p>Recruit talented performers, send invitations, and manage the talent lineup.</p>
+          <div className="step-card">
+            <div className="step-number">2</div>
+            <h3>Create Your Event</h3>
+            <p>Set up your event details and requirements</p>
           </div>
-
-          <div className="feature-card">
-            <h3>Talents</h3>
-            <p>Build your profile, receive invitations, and grow your reputation with ratings.</p>
+          <div className="step-card">
+            <div className="step-number">3</div>
+            <h3>Recruit Talent</h3>
+            <p>Find and invite talented performers for your event</p>
+          </div>
+          <div className="step-card">
+            <div className="step-number">4</div>
+            <h3>Execute & Rate</h3>
+            <p>Host your event and build lasting relationships</p>
           </div>
         </div>
       </div>

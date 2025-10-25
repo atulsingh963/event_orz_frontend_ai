@@ -16,6 +16,7 @@ import ManageTalents from './pages/manager/ManageTalents';
 import TalentDashboard from './pages/talent/TalentDashboard';
 
 import './App.css';
+import './styles/home.css';
 
 function App() {
   return (
