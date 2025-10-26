@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { ratingService } from '../services/ratingService';
 
-const RatingModal = ({ eventId, talent, onClose, onSuccess }) => {
+const RatingModal = ({ eventId, user, userType, onClose, onSuccess }) => {
   const [formData, setFormData] = useState({
     rating: 5,
     review: '',
@@ -13,23 +13,26 @@ const RatingModal = ({ eventId, talent, onClose, onSuccess }) => {
     }
   });
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    setError('');
 
     try {
       await ratingService.createRating({
         eventId,
-        talentId: talent._id,
+        userId: user._id,
+        userType: userType || 'talent', // 'talent' or 'eventManager'
         ...formData
       });
 
       alert('Rating submitted successfully!');
-      onSuccess();
+      onSuccess && onSuccess();
       onClose();
     } catch (err) {
-      alert('Failed to submit rating');
+      setError(err.response?.data?.message || 'Failed to submit rating');
       setLoading(false);
     }
   };
@@ -38,9 +41,11 @@ const RatingModal = ({ eventId, talent, onClose, onSuccess }) => {
     <div className="modal">
       <div className="modal-content">
         <div className="modal-header">
-          <h2>Rate {talent.name}</h2>
+          <h2>Rate {user.name}</h2>
           <button onClick={onClose} className="btn-close">&times;</button>
         </div>
+
+        {error && <div className="error-message">{error}</div>}
 
         <form onSubmit={handleSubmit}>
           <div className="form-group">

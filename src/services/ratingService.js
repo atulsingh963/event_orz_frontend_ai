@@ -6,6 +6,11 @@ export const ratingService = {
     return data;
   },
 
+  getUserRatings: async (userId) => {
+    const { data } = await API.get(`/ratings/user/${userId}`);
+    return data;
+  },
+
   getTalentRatings: async (talentId) => {
     const { data } = await API.get(`/ratings/talent/${talentId}`);
     return data;

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { eventService } from '../../services/eventService';
 import { invitationService } from '../../services/invitationService';
+import RatingModal from '../../components/RatingModal';
 
 const EventDetails = () => {
   const { id } = useParams();
@@ -12,6 +13,9 @@ const EventDetails = () => {
   const [loading, setLoading] = useState(true);
   const [showManagerFinder, setShowManagerFinder] = useState(false);
   const [actionLoading, setActionLoading] = useState(false);
+  const [showRatingModal, setShowRatingModal] = useState(false);
+  const [userToRate, setUserToRate] = useState(null);
+  const [ratingUserType, setRatingUserType] = useState(null);
 
   useEffect(() => {
     fetchEventDetails();
@@ -74,6 +78,19 @@ const EventDetails = () => {
     } finally {
       setActionLoading(false);
     }
+  };
+
+  const handleRateUser = (user, userType) => {
+    setUserToRate(user);
+    setRatingUserType(userType);
+    setShowRatingModal(true);
+  };
+
+  const handleRatingSuccess = () => {
+    setShowRatingModal(false);
+    setUserToRate(null);
+    setRatingUserType(null);
+    // Optionally refresh data
   };
 
   if (loading) return <div className="loading">Loading...</div>;
@@ -230,13 +247,30 @@ const EventDetails = () => {
             <div className="details-card">
               <h2>Event Manager</h2>
               {event.eventManager ? (
-                <div className="manager-info">
-                  <div className="manager-avatar">{event.eventManager.name.charAt(0)}</div>
-                  <div>
-                    <div className="manager-name">{event.eventManager.name}</div>
-                    <div className="manager-email">{event.eventManager.email}</div>
-                    {event.eventManager.phone && <div className="manager-phone">📞 {event.eventManager.phone}</div>}
+                <div>
+                  <div className="manager-info">
+                    <div className="manager-avatar">{event.eventManager.name.charAt(0)}</div>
+                    <div>
+                      <div className="manager-name">{event.eventManager.name}</div>
+                      <div className="manager-email">{event.eventManager.email}</div>
+                      {event.eventManager.phone && <div className="manager-phone">📞 {event.eventManager.phone}</div>}
+                      {event.eventManager.averageRating > 0 && (
+                        <div className="rating-display" style={{ marginTop: '0.5rem' }}>
+                          <span className="rating-stars">⭐ {event.eventManager.averageRating.toFixed(1)}</span>
+                          <span className="rating-count">({event.eventManager.totalRatings} reviews)</span>
+                        </div>
+                      )}
+                    </div>
                   </div>
+                  {event.status === 'completed' && (
+                    <button
+                      onClick={() => handleRateUser(event.eventManager, 'eventManager')}
+                      className="btn-rate"
+                      style={{ marginTop: '1rem', width: '100%' }}
+                    >
+                      ⭐ Rate Event Manager
+                    </button>
+                  )}
                 </div>
               ) : (
                 <div className="no-manager">
@@ -308,6 +342,12 @@ const EventDetails = () => {
                         <h3>{manager.name}</h3>
                         <p>{manager.email}</p>
                         {manager.phone && <p>📞 {manager.phone}</p>}
+                        {manager.averageRating > 0 && (
+                          <div className="rating-display" style={{ marginTop: '0.5rem' }}>
+                            <span className="rating-stars">⭐ {manager.averageRating.toFixed(1)}</span>
+                            <span className="rating-count">({manager.totalRatings} reviews)</span>
+                          </div>
+                        )}
                       </div>
                       <button
                         onClick={() => handleAssignManager(manager._id)}
@@ -322,6 +362,17 @@ const EventDetails = () => {
               </div>
             </div>
           </div>
+        )}
+
+        {/* Rating Modal */}
+        {showRatingModal && userToRate && (
+          <RatingModal
+            eventId={id}
+            user={userToRate}
+            userType={ratingUserType}
+            onClose={() => setShowRatingModal(false)}
+            onSuccess={handleRatingSuccess}
+          />
         )}
       </div>
     </div>

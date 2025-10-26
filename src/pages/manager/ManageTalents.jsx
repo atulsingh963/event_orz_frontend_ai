@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { invitationService } from '../../services/invitationService';
 import { eventService } from '../../services/eventService';
+import RatingModal from '../../components/RatingModal';
 
 const ManageTalents = () => {
   const { eventId } = useParams();
@@ -15,6 +16,8 @@ const ManageTalents = () => {
     expiryDate: '',
     compensation: { amount: 0 }
   });
+  const [showRatingModal, setShowRatingModal] = useState(false);
+  const [talentToRate, setTalentToRate] = useState(null);
 
   useEffect(() => {
     fetchEvent();
@@ -80,6 +83,17 @@ const ManageTalents = () => {
     } catch (err) {
       alert('Failed to update invitation');
     }
+  };
+
+  const handleRateTalent = (talent) => {
+    setTalentToRate(talent);
+    setShowRatingModal(true);
+  };
+
+  const handleRatingSuccess = () => {
+    setShowRatingModal(false);
+    setTalentToRate(null);
+    fetchInvitations(); // Refresh to show updated ratings
   };
 
   if (!event) return <div className="loading">Loading...</div>;
@@ -194,19 +208,40 @@ const ManageTalents = () => {
                     <span className="detail-value">{new Date(invitation.expiryDate).toLocaleDateString()}</span>
                   </div>
                 </div>
-                {invitation.status === 'pending' && (
-                  <button
-                    onClick={() => handleRespondInvitation(invitation._id)}
-                    className="btn-danger btn-sm"
-                  >
-                    Cancel Invitation
-                  </button>
-                )}
+                <div style={{ display: 'flex', gap: '0.5rem', marginTop: '0.75rem' }}>
+                  {invitation.status === 'pending' && (
+                    <button
+                      onClick={() => handleRespondInvitation(invitation._id)}
+                      className="btn-danger btn-sm"
+                    >
+                      Cancel Invitation
+                    </button>
+                  )}
+                  {invitation.status === 'accepted' && event.status === 'completed' && (
+                    <button
+                      onClick={() => handleRateTalent(invitation.talent)}
+                      className="btn-rate btn-sm"
+                    >
+                      ⭐ Rate Talent
+                    </button>
+                  )}
+                </div>
               </div>
             ))}
           </div>
         )}
       </div>
+
+      {/* Rating Modal */}
+      {showRatingModal && talentToRate && (
+        <RatingModal
+          eventId={eventId}
+          user={talentToRate}
+          userType="talent"
+          onClose={() => setShowRatingModal(false)}
+          onSuccess={handleRatingSuccess}
+        />
+      )}
 
       {showTalentBrowser && (
         <div className="modal">
