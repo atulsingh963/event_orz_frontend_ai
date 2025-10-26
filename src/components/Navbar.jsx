@@ -59,10 +59,11 @@ const Navbar = () => {
             <>
               {user.role === 'eventOrganizer' && (
                 <>
-                  <Link to="/organizer/create-event" className="btn-list-space">
+                  {/* <Link to="/organizer/create-event" className="btn-list-space">
                     List Your Space
-                  </Link>
+                  </Link> */}
                   <Link to="/organizer/dashboard" className="nav-link">My Events</Link>
+                  <Link to="/profile" className="nav-link">My Profile</Link>
                 </>
               )}
               {user.role === 'eventManager' && (
