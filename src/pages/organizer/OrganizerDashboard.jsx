@@ -57,7 +57,7 @@ const OrganizerDashboard = () => {
               <div className="event-card-header">
                 <h3>{event.title}</h3>
                 <span className={`status-badge status-${event.status}`}>
-                  {event.status}
+                  {event.status === 'confirmed' ? 'Ready to Go' : event.status}
                 </span>
               </div>
 

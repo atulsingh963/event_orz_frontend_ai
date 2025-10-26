@@ -34,5 +34,10 @@ export const eventService = {
   addEventAddOns: async (eventId, addOns) => {
     const { data } = await API.post(`/events/${eventId}/addons`, { addOns });
     return data;
+  },
+
+  updateEventStatus: async (eventId, status) => {
+    const { data } = await API.put(`/events/${eventId}/status`, { status });
+    return data;
   }
 };

@@ -9,6 +9,7 @@ const EventDetailsManager = () => {
   const [event, setEvent] = useState(null);
   const [invitations, setInvitations] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [actionLoading, setActionLoading] = useState(false);
 
   useEffect(() => {
     fetchEventDetails();
@@ -35,6 +36,36 @@ const EventDetailsManager = () => {
     }
   };
 
+  const handleStartEvent = async () => {
+    if (!confirm('Are you sure you want to start this event?')) return;
+
+    setActionLoading(true);
+    try {
+      await eventService.updateEventStatus(id, 'ongoing');
+      fetchEventDetails();
+      alert('Event has been started!');
+    } catch (err) {
+      alert(err.response?.data?.message || 'Failed to start event');
+    } finally {
+      setActionLoading(false);
+    }
+  };
+
+  const handleCompleteEvent = async () => {
+    if (!confirm('Are you sure you want to mark this event as completed?')) return;
+
+    setActionLoading(true);
+    try {
+      await eventService.updateEventStatus(id, 'completed');
+      fetchEventDetails();
+      alert('Event has been completed! You can now rate talents.');
+    } catch (err) {
+      alert(err.response?.data?.message || 'Failed to complete event');
+    } finally {
+      setActionLoading(false);
+    }
+  };
+
   if (loading) return <div className="loading">Loading...</div>;
   if (!event) return <div className="error-message">Event not found</div>;
 
@@ -54,7 +85,9 @@ const EventDetailsManager = () => {
           <div>
             <h1>{event.title}</h1>
             <div className="event-meta">
-              <span className={`status-badge status-${event.status}`}>{event.status}</span>
+              <span className={`status-badge status-${event.status}`}>
+                {event.status === 'confirmed' ? 'Ready to Go' : event.status}
+              </span>
               <span className="event-date">
                 📅 {new Date(event.eventDate).toLocaleDateString()}
               </span>
@@ -71,6 +104,16 @@ const EventDetailsManager = () => {
             <Link to={`/manager/events/${id}/talents`} className="btn-primary">
               Manage Talents
             </Link>
+            {event.status === 'confirmed' && (
+              <button onClick={handleStartEvent} className="btn-ongoing" disabled={actionLoading}>
+                {actionLoading ? 'Starting...' : '▶ Start Event'}
+              </button>
+            )}
+            {event.status === 'ongoing' && (
+              <button onClick={handleCompleteEvent} className="btn-success" disabled={actionLoading}>
+                {actionLoading ? 'Completing...' : '✓ Complete Event'}
+              </button>
+            )}
           </div>
         </div>
 
@@ -80,7 +123,29 @@ const EventDetailsManager = () => {
             <div className="success-banner-icon">✓</div>
             <div className="success-banner-content">
               <h3>Event is Ready to Go!</h3>
-              <p>All talents have been confirmed and everything looks good. Your event is ready to execute.</p>
+              <p>All talents have been confirmed and everything looks good. Click "Start Event" when the event begins.</p>
+            </div>
+          </div>
+        )}
+
+        {/* Ongoing banner */}
+        {event.status === 'ongoing' && (
+          <div className="ongoing-banner">
+            <div className="ongoing-banner-icon">▶</div>
+            <div className="ongoing-banner-content">
+              <h3>Event is Currently Ongoing</h3>
+              <p>The event is in progress. Click "Complete Event" when the event finishes.</p>
+            </div>
+          </div>
+        )}
+
+        {/* Completed banner */}
+        {event.status === 'completed' && (
+          <div className="completed-banner">
+            <div className="completed-banner-icon">🎉</div>
+            <div className="completed-banner-content">
+              <h3>Event Completed Successfully!</h3>
+              <p>Great job! You can now rate the talents who participated in this event.</p>
             </div>
           </div>
         )}
@@ -109,6 +174,12 @@ const EventDetailsManager = () => {
                 {event.organizer?.email && <p className="contact-info">📧 {event.organizer.email}</p>}
                 {event.organizer?.phone && <p className="contact-info">📞 {event.organizer.phone}</p>}
               </div>
+
+              {event.status !== 'completed' && (
+                <div className="review-pending-notice" style={{ marginTop: '1rem' }}>
+                  <p>📝 Can't review until event is done</p>
+                </div>
+              )}
             </div>
 
             <div className="details-card">

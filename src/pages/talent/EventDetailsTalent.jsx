@@ -65,7 +65,9 @@ const EventDetailsTalent = () => {
           <div>
             <h1>{event.title}</h1>
             <div className="event-meta">
-              <span className={`status-badge status-${event.status}`}>{event.status}</span>
+              <span className={`status-badge status-${event.status}`}>
+                {event.status === 'confirmed' ? 'Ready to Go' : event.status}
+              </span>
               <span className="event-date">
                 📅 {new Date(event.eventDate).toLocaleDateString()}
               </span>
@@ -214,6 +216,12 @@ const EventDetailsTalent = () => {
                       )}
                     </div>
                   </div>
+                </div>
+              )}
+
+              {event.status !== 'completed' && myInvitation?.status === 'accepted' && (
+                <div className="review-pending-notice" style={{ marginTop: '1rem' }}>
+                  <p>📝 Can't review until event is done</p>
                 </div>
               )}
             </div>

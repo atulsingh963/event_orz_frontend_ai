@@ -112,7 +112,9 @@ const EventDetails = () => {
           <div>
             <h1>{event.title}</h1>
             <div className="event-meta">
-              <span className={`status-badge status-${event.status}`}>{event.status}</span>
+              <span className={`status-badge status-${event.status}`}>
+                {event.status === 'confirmed' ? 'Ready to Go' : event.status}
+              </span>
               <span className="event-date">
                 📅 {new Date(event.eventDate).toLocaleDateString()}
               </span>
@@ -262,7 +264,7 @@ const EventDetails = () => {
                       )}
                     </div>
                   </div>
-                  {event.status === 'completed' && (
+                  {event.status === 'completed' ? (
                     <button
                       onClick={() => handleRateUser(event.eventManager, 'eventManager')}
                       className="btn-rate"
@@ -270,6 +272,10 @@ const EventDetails = () => {
                     >
                       ⭐ Rate Event Manager
                     </button>
+                  ) : (
+                    <div className="review-pending-notice">
+                      <p>📝 Can't review until event is done</p>
+                    </div>
                   )}
                 </div>
               ) : (
