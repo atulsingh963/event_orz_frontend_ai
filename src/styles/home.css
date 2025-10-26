@@ -9,14 +9,11 @@
 .hero-section-new {
   position: relative;
   height: 500px;
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-  background-image:
-    linear-gradient(rgba(26, 26, 46, 0.85), rgba(26, 26, 46, 0.85)),
-    url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   overflow: hidden;
+  padding-top: 40px;
 }
 
 .hero-section-new::before {
@@ -26,10 +23,8 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background:
-    radial-gradient(circle at 20% 50%, rgba(138, 43, 226, 0.3) 0%, transparent 50%),
-    radial-gradient(circle at 80% 50%, rgba(0, 191, 255, 0.3) 0%, transparent 50%);
-  animation: pulse 8s ease-in-out infinite;
+  /* background: linear-gradient(135deg, rgba(26, 26, 46, 0.85) 0%, rgba(15, 52, 96, 0.85) 100%); */
+  z-index: 1;
 }
 
 @keyframes pulse {
@@ -39,7 +34,7 @@
 
 .hero-overlay {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   width: 100%;
   max-width: 1200px;
   padding: 0 2rem;
@@ -60,9 +55,9 @@
 
 .hero-subtitle {
   font-size: 1.3rem;
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(255, 255, 255, 1);
   margin-bottom: 2.5rem;
-  font-weight: 300;
+  font-weight: 600;
 }
 
 /* Search Form */
@@ -127,7 +122,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(255, 255, 255, 0.75);
+  /* background: rgba(255, 255, 255, 0.75); */
   z-index: 0;
 }
 
@@ -149,12 +144,13 @@
   margin-bottom: 3rem;
   color: #1a1a2e;
   font-weight: 700;
+  color: white;
 }
 
 .venues-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  gap: 2rem;
+  gap: 4rem;
 }
 
 .empty-venues {

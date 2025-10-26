@@ -38,7 +38,12 @@ const Home = () => {
   return (
     <div className="home-container-new">
       {/* Hero Section */}
-      <div className="hero-section-new">
+      <div className="hero-section-new" style={{
+        backgroundImage: `url(${indiaMapBg})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundAttachment: 'fixed'
+      }}>
         <div className="hero-overlay">
           <div className="hero-content">
             <h1 className="hero-title">Flexible Venues.<br />Flexible Rates. FAST.</h1>

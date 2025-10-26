@@ -69,7 +69,7 @@ const ReviewsModal = ({ user, onClose }) => {
                     </div>
 
                     <div className="review-rating">
-                      {renderStars(rating.overallRating)} ({rating.overallRating}/5)
+                      {renderStars(rating.rating)} ({rating.rating}/5)
                     </div>
 
                     {rating.review && (
