@@ -119,6 +119,23 @@
   max-width: 1400px;
   margin: 0 auto;
   padding: 4rem 2rem;
+  position: relative;
+}
+
+.featured-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.92);
+  z-index: 0;
+}
+
+.featured-section > * {
+  position: relative;
+  z-index: 1;
 }
 
 .featured-title {

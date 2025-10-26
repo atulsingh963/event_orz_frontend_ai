@@ -438,6 +438,8 @@ body {
 .status-pending { background: #fff3cd; color: #664d03; }
 .status-accepted { background: #d1e7dd; color: #0f5132; }
 .status-rejected { background: #f8d7da; color: #842029; }
+.status-cancelled { background: #6c757d; color: white; }
+.status-replaced { background: #6c757d; color: white; }
 
 .event-card-body, .invitation-body {
   margin-bottom: 1rem;
@@ -1832,4 +1834,25 @@ body {
   color: #999;
   font-size: 0.85rem;
   margin-top: 0.25rem;
+}
+
+/* Cancelled Invitation Message */
+.cancelled-message {
+  background: #f8d7da;
+  border: 1px solid #dc3545;
+  border-radius: 6px;
+  padding: 1rem;
+  color: #721c24;
+}
+
+.cancelled-message strong {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+}
+
+.cancelled-message p {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.5;
 }

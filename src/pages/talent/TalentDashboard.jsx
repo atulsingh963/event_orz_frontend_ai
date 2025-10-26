@@ -12,6 +12,7 @@ const TalentDashboard = () => {
   const fetchInvitations = async () => {
     try {
       const data = await invitationService.getMyInvitations();
+      // Show all invitations including cancelled ones
       setInvitations(data);
     } catch (err) {
       console.error('Failed to load invitations', err);
@@ -97,7 +98,18 @@ const TalentDashboard = () => {
 
                 {invitation.status === 'accepted' && (
                   <div className="invitation-info">
-                    <p className="success-message">You have accepted this invitation!</p>
+                    <p className="success-message">✓ You have accepted this invitation!</p>
+                  </div>
+                )}
+
+                {invitation.status === 'cancelled' && (
+                  <div className="invitation-info">
+                    <div className="cancelled-message">
+                      <strong>Invitation Cancelled</strong>
+                      {invitation.cancellationReason && (
+                        <p>{invitation.cancellationReason}</p>
+                      )}
+                    </div>
                   </div>
                 )}
               </div>

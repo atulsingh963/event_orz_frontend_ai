@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { venueService } from '../services/venueService';
+import indiaMapBg from '../assets/india_earth_satellite_map.jpg';
 
 const Home = () => {
   const [venues, setVenues] = useState([]);
@@ -67,7 +68,12 @@ const Home = () => {
       </div>
 
       {/* Featured Spaces Section */}
-      <div className="featured-section">
+      <div className="featured-section" style={{
+        backgroundImage: `url(${indiaMapBg})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundAttachment: 'fixed'
+      }}>
         <h2 className="featured-title">Featured Spaces</h2>
         <div className="venues-grid">
           {venues.length === 0 ? (
