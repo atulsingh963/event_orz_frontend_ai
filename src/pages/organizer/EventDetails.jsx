@@ -117,6 +117,17 @@ const EventDetails = () => {
           </div>
         </div>
 
+        {/* Success banner if event is confirmed and ready */}
+        {event.status === 'confirmed' && (
+          <div className="success-banner">
+            <div className="success-banner-icon">✓</div>
+            <div className="success-banner-content">
+              <h3>Event is Ready to Go!</h3>
+              <p>All talents have been confirmed and everything looks good. Your event is ready to execute.</p>
+            </div>
+          </div>
+        )}
+
         {/* Warning if no manager */}
         {!event.eventManager && event.status !== 'draft' && (
           <div className="warning-banner">

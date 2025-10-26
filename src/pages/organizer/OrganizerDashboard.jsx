@@ -53,13 +53,20 @@ const OrganizerDashboard = () => {
           </div>
         ) : (
           events.map(event => (
-            <div key={event._id} className="event-card">
+            <div key={event._id} className={`event-card ${event.status === 'confirmed' ? 'event-card-confirmed' : ''}`}>
               <div className="event-card-header">
                 <h3>{event.title}</h3>
                 <span className={`status-badge status-${event.status}`}>
                   {event.status}
                 </span>
               </div>
+
+              {event.status === 'confirmed' && (
+                <div className="event-ready-indicator">
+                  <span className="ready-icon">✓</span>
+                  <span className="ready-text">Ready to Go!</span>
+                </div>
+              )}
 
               <div className="event-card-body">
                 <p className="event-description">{event.description}</p>
