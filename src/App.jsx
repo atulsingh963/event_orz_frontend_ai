@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 import PrivateRoute from './components/PrivateRoute';
 
 import Home from './pages/Home';
@@ -117,6 +118,7 @@ function App() {
               <Route path="*" element={<div className="not-found">404 - Page Not Found</div>} />
             </Routes>
           </main>
+          <Footer />
         </div>
       </AuthProvider>
     </Router>
