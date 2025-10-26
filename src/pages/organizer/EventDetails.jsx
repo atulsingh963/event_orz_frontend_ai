@@ -3,6 +3,7 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 import { eventService } from '../../services/eventService';
 import { invitationService } from '../../services/invitationService';
 import RatingModal from '../../components/RatingModal';
+import ReviewsModal from '../../components/ReviewsModal';
 
 const EventDetails = () => {
   const { id } = useParams();
@@ -16,6 +17,8 @@ const EventDetails = () => {
   const [showRatingModal, setShowRatingModal] = useState(false);
   const [userToRate, setUserToRate] = useState(null);
   const [ratingUserType, setRatingUserType] = useState(null);
+  const [showReviewsModal, setShowReviewsModal] = useState(false);
+  const [reviewsUser, setReviewsUser] = useState(null);
 
   useEffect(() => {
     fetchEventDetails();
@@ -90,7 +93,12 @@ const EventDetails = () => {
     setShowRatingModal(false);
     setUserToRate(null);
     setRatingUserType(null);
-    // Optionally refresh data
+    fetchEventDetails(); // Refresh to show updated ratings
+  };
+
+  const handleViewReviews = (user) => {
+    setReviewsUser(user);
+    setShowReviewsModal(true);
   };
 
   if (loading) return <div className="loading">Loading...</div>;
@@ -259,7 +267,12 @@ const EventDetails = () => {
                       {event.eventManager.averageRating > 0 && (
                         <div className="rating-display" style={{ marginTop: '0.5rem' }}>
                           <span className="rating-stars">⭐ {event.eventManager.averageRating.toFixed(1)}</span>
-                          <span className="rating-count">({event.eventManager.totalRatings} reviews)</span>
+                          <span
+                            className="rating-count rating-count-clickable"
+                            onClick={() => handleViewReviews(event.eventManager)}
+                          >
+                            ({event.eventManager.totalRatings} review{event.eventManager.totalRatings !== 1 ? 's' : ''})
+                          </span>
                         </div>
                       )}
                     </div>
@@ -351,7 +364,15 @@ const EventDetails = () => {
                         {manager.averageRating > 0 && (
                           <div className="rating-display" style={{ marginTop: '0.5rem' }}>
                             <span className="rating-stars">⭐ {manager.averageRating.toFixed(1)}</span>
-                            <span className="rating-count">({manager.totalRatings} reviews)</span>
+                            <span
+                              className="rating-count rating-count-clickable"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleViewReviews(manager);
+                              }}
+                            >
+                              ({manager.totalRatings} review{manager.totalRatings !== 1 ? 's' : ''})
+                            </span>
                           </div>
                         )}
                       </div>
@@ -378,6 +399,17 @@ const EventDetails = () => {
             userType={ratingUserType}
             onClose={() => setShowRatingModal(false)}
             onSuccess={handleRatingSuccess}
+          />
+        )}
+
+        {/* Reviews Modal */}
+        {showReviewsModal && reviewsUser && (
+          <ReviewsModal
+            user={reviewsUser}
+            onClose={() => {
+              setShowReviewsModal(false);
+              setReviewsUser(null);
+            }}
           />
         )}
       </div>

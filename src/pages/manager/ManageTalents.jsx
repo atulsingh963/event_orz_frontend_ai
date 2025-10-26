@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { invitationService } from '../../services/invitationService';
 import { eventService } from '../../services/eventService';
 import RatingModal from '../../components/RatingModal';
+import ReviewsModal from '../../components/ReviewsModal';
 
 const ManageTalents = () => {
   const { eventId } = useParams();
@@ -18,6 +19,8 @@ const ManageTalents = () => {
   });
   const [showRatingModal, setShowRatingModal] = useState(false);
   const [talentToRate, setTalentToRate] = useState(null);
+  const [showReviewsModal, setShowReviewsModal] = useState(false);
+  const [reviewsUser, setReviewsUser] = useState(null);
 
   useEffect(() => {
     fetchEvent();
@@ -94,6 +97,11 @@ const ManageTalents = () => {
     setShowRatingModal(false);
     setTalentToRate(null);
     fetchInvitations(); // Refresh to show updated ratings
+  };
+
+  const handleViewReviews = (user) => {
+    setReviewsUser(user);
+    setShowReviewsModal(true);
   };
 
   if (!event) return <div className="loading">Loading...</div>;
@@ -243,6 +251,17 @@ const ManageTalents = () => {
         />
       )}
 
+      {/* Reviews Modal */}
+      {showReviewsModal && reviewsUser && (
+        <ReviewsModal
+          user={reviewsUser}
+          onClose={() => {
+            setShowReviewsModal(false);
+            setReviewsUser(null);
+          }}
+        />
+      )}
+
       {showTalentBrowser && (
         <div className="modal">
           <div className="modal-content" style={{ maxWidth: '900px' }}>
@@ -306,7 +325,15 @@ const ManageTalents = () => {
                           <h3>{talent.name}</h3>
                           <div className="talent-rating">
                             ⭐ {talent.averageRating?.toFixed(1) || 'N/A'}
-                            <span className="review-count">({talent.totalRatings || 0} reviews)</span>
+                            <span
+                              className="review-count rating-count-clickable"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleViewReviews(talent);
+                              }}
+                            >
+                              ({talent.totalRatings || 0} review{talent.totalRatings !== 1 ? 's' : ''})
+                            </span>
                           </div>
                         </div>
                       </div>
