@@ -25,6 +25,19 @@ const Navbar = () => {
     }
   };
 
+  const getRoleDisplayName = (role) => {
+    switch (role) {
+      case 'eventOrganizer':
+        return 'Organizer';
+      case 'eventManager':
+        return 'Manager';
+      case 'talent':
+        return 'Talent';
+      default:
+        return '';
+    }
+  };
+
   return (
     <nav className="navbar">
       <div className="nav-container">
@@ -65,7 +78,7 @@ const Navbar = () => {
                 </>
               )}
               <span className="user-info">
-                {user.name}
+                {user.name} <span className="user-role-badge">({getRoleDisplayName(user.role)})</span>
               </span>
               <button onClick={handleLogout} className="btn-logout">
                 Logout

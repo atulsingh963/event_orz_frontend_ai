@@ -91,6 +91,15 @@ body {
 .user-info {
   color: #aaa;
   font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.user-role-badge {
+  color: #00f2fe;
+  font-weight: 600;
+  font-size: 0.85rem;
 }
 
 .btn-list-space {
