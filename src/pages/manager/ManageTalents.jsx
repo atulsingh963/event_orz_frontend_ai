@@ -2,8 +2,9 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { invitationService } from '../../services/invitationService';
 import { eventService } from '../../services/eventService';
-import RatingModal from '../../components/RatingModal';
-import ReviewsModal from '../../components/ReviewsModal';
+// RATING_FEATURE: Uncomment below to enable rating functionality
+// import RatingModal from '../../components/RatingModal';
+// import ReviewsModal from '../../components/ReviewsModal';
 
 const ManageTalents = () => {
   const { eventId } = useParams();
@@ -17,10 +18,11 @@ const ManageTalents = () => {
     expiryDate: '',
     compensation: { amount: 0 }
   });
-  const [showRatingModal, setShowRatingModal] = useState(false);
-  const [talentToRate, setTalentToRate] = useState(null);
-  const [showReviewsModal, setShowReviewsModal] = useState(false);
-  const [reviewsUser, setReviewsUser] = useState(null);
+  // RATING_FEATURE: Uncomment below to enable rating state
+  // const [showRatingModal, setShowRatingModal] = useState(false);
+  // const [talentToRate, setTalentToRate] = useState(null);
+  // const [showReviewsModal, setShowReviewsModal] = useState(false);
+  // const [reviewsUser, setReviewsUser] = useState(null);
 
   useEffect(() => {
     fetchEvent();
@@ -88,21 +90,22 @@ const ManageTalents = () => {
     }
   };
 
-  const handleRateTalent = (talent) => {
-    setTalentToRate(talent);
-    setShowRatingModal(true);
-  };
+  // RATING_FEATURE: Uncomment below to enable rating handlers
+  // const handleRateTalent = (talent) => {
+  //   setTalentToRate(talent);
+  //   setShowRatingModal(true);
+  // };
 
-  const handleRatingSuccess = () => {
-    setShowRatingModal(false);
-    setTalentToRate(null);
-    fetchInvitations(); // Refresh to show updated ratings
-  };
+  // const handleRatingSuccess = () => {
+  //   setShowRatingModal(false);
+  //   setTalentToRate(null);
+  //   fetchInvitations(); // Refresh to show updated ratings
+  // };
 
-  const handleViewReviews = (user) => {
-    setReviewsUser(user);
-    setShowReviewsModal(true);
-  };
+  // const handleViewReviews = (user) => {
+  //   setReviewsUser(user);
+  //   setShowReviewsModal(true);
+  // };
 
   if (!event) return <div className="loading">Loading...</div>;
 
@@ -201,12 +204,13 @@ const ManageTalents = () => {
                     <span className="detail-label">Skill:</span>
                     <span className="detail-value skill-tag">{invitation.skill}</span>
                   </div>
-                  <div className="detail-row">
+                  {/* RATING_FEATURE: Uncomment below to show talent rating */}
+                  {/* <div className="detail-row">
                     <span className="detail-label">Rating:</span>
                     <span className="detail-value rating-value">
                       ⭐ {invitation.talent?.averageRating?.toFixed(1) || 'N/A'} / 5
                     </span>
-                  </div>
+                  </div> */}
                   <div className="detail-row">
                     <span className="detail-label">Compensation:</span>
                     <span className="detail-value">₹{invitation.compensation?.amount || 0}</span>
@@ -225,14 +229,15 @@ const ManageTalents = () => {
                       Cancel Invitation
                     </button>
                   )}
-                  {invitation.status === 'accepted' && event.status === 'completed' && (
+                  {/* RATING_FEATURE: Uncomment below to enable rating button for talents */}
+                  {/* {invitation.status === 'accepted' && event.status === 'completed' && (
                     <button
                       onClick={() => handleRateTalent(invitation.talent)}
                       className="btn-rate btn-sm"
                     >
                       ⭐ Rate Talent
                     </button>
-                  )}
+                  )} */}
                 </div>
               </div>
             ))}
@@ -240,8 +245,8 @@ const ManageTalents = () => {
         )}
       </div>
 
-      {/* Rating Modal */}
-      {showRatingModal && talentToRate && (
+      {/* RATING_FEATURE: Uncomment below to enable Rating Modal */}
+      {/* {showRatingModal && talentToRate && (
         <RatingModal
           eventId={eventId}
           user={talentToRate}
@@ -249,10 +254,10 @@ const ManageTalents = () => {
           onClose={() => setShowRatingModal(false)}
           onSuccess={handleRatingSuccess}
         />
-      )}
+      )} */}
 
-      {/* Reviews Modal */}
-      {showReviewsModal && reviewsUser && (
+      {/* RATING_FEATURE: Uncomment below to enable Reviews Modal */}
+      {/* {showReviewsModal && reviewsUser && (
         <ReviewsModal
           user={reviewsUser}
           onClose={() => {
@@ -260,7 +265,7 @@ const ManageTalents = () => {
             setReviewsUser(null);
           }}
         />
-      )}
+      )} */}
 
       {showTalentBrowser && (
         <div className="modal">
@@ -323,7 +328,8 @@ const ManageTalents = () => {
                         <div className="talent-avatar-large">{talent.name?.charAt(0)}</div>
                         <div>
                           <h3>{talent.name}</h3>
-                          <div className="talent-rating">
+                          {/* RATING_FEATURE: Uncomment below to show talent ratings in browser */}
+                          {/* <div className="talent-rating">
                             ⭐ {talent.averageRating?.toFixed(1) || 'N/A'}
                             <span
                               className="review-count rating-count-clickable"
@@ -334,7 +340,7 @@ const ManageTalents = () => {
                             >
                               ({talent.totalRatings || 0} review{talent.totalRatings !== 1 ? 's' : ''})
                             </span>
-                          </div>
+                          </div> */}
                         </div>
                       </div>
                       <div className="talent-skills-list">

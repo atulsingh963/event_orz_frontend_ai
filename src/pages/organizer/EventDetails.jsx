@@ -2,8 +2,9 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { eventService } from '../../services/eventService';
 import { invitationService } from '../../services/invitationService';
-import RatingModal from '../../components/RatingModal';
-import ReviewsModal from '../../components/ReviewsModal';
+// RATING_FEATURE: Uncomment below to enable rating functionality
+// import RatingModal from '../../components/RatingModal';
+// import ReviewsModal from '../../components/ReviewsModal';
 
 const EventDetails = () => {
   const { id } = useParams();
@@ -14,11 +15,12 @@ const EventDetails = () => {
   const [loading, setLoading] = useState(true);
   const [showManagerFinder, setShowManagerFinder] = useState(false);
   const [actionLoading, setActionLoading] = useState(false);
-  const [showRatingModal, setShowRatingModal] = useState(false);
-  const [userToRate, setUserToRate] = useState(null);
-  const [ratingUserType, setRatingUserType] = useState(null);
-  const [showReviewsModal, setShowReviewsModal] = useState(false);
-  const [reviewsUser, setReviewsUser] = useState(null);
+  // RATING_FEATURE: Uncomment below to enable rating state
+  // const [showRatingModal, setShowRatingModal] = useState(false);
+  // const [userToRate, setUserToRate] = useState(null);
+  // const [ratingUserType, setRatingUserType] = useState(null);
+  // const [showReviewsModal, setShowReviewsModal] = useState(false);
+  // const [reviewsUser, setReviewsUser] = useState(null);
 
   useEffect(() => {
     fetchEventDetails();
@@ -83,23 +85,24 @@ const EventDetails = () => {
     }
   };
 
-  const handleRateUser = (user, userType) => {
-    setUserToRate(user);
-    setRatingUserType(userType);
-    setShowRatingModal(true);
-  };
+  // RATING_FEATURE: Uncomment below to enable rating handlers
+  // const handleRateUser = (user, userType) => {
+  //   setUserToRate(user);
+  //   setRatingUserType(userType);
+  //   setShowRatingModal(true);
+  // };
 
-  const handleRatingSuccess = () => {
-    setShowRatingModal(false);
-    setUserToRate(null);
-    setRatingUserType(null);
-    fetchEventDetails(); // Refresh to show updated ratings
-  };
+  // const handleRatingSuccess = () => {
+  //   setShowRatingModal(false);
+  //   setUserToRate(null);
+  //   setRatingUserType(null);
+  //   fetchEventDetails(); // Refresh to show updated ratings
+  // };
 
-  const handleViewReviews = (user) => {
-    setReviewsUser(user);
-    setShowReviewsModal(true);
-  };
+  // const handleViewReviews = (user) => {
+  //   setReviewsUser(user);
+  //   setShowReviewsModal(true);
+  // };
 
   if (loading) return <div className="loading">Loading...</div>;
   if (!event) return <div className="error-message">Event not found</div>;
@@ -264,7 +267,8 @@ const EventDetails = () => {
                       <div className="manager-name">{event.eventManager.name}</div>
                       <div className="manager-email">{event.eventManager.email}</div>
                       {event.eventManager.phone && <div className="manager-phone">📞 {event.eventManager.phone}</div>}
-                      {event.eventManager.averageRating > 0 && (
+                      {/* RATING_FEATURE: Uncomment below to show manager ratings */}
+                      {/* {event.eventManager.averageRating > 0 && (
                         <div className="rating-display" style={{ marginTop: '0.5rem' }}>
                           <span className="rating-stars">⭐ {event.eventManager.averageRating.toFixed(1)}</span>
                           <span
@@ -274,10 +278,11 @@ const EventDetails = () => {
                             ({event.eventManager.totalRatings} review{event.eventManager.totalRatings !== 1 ? 's' : ''})
                           </span>
                         </div>
-                      )}
+                      )} */}
                     </div>
                   </div>
-                  {event.status === 'completed' ? (
+                  {/* RATING_FEATURE: Uncomment below to enable rating button for event manager */}
+                  {/* {event.status === 'completed' ? (
                     <button
                       onClick={() => handleRateUser(event.eventManager, 'eventManager')}
                       className="btn-rate"
@@ -289,7 +294,7 @@ const EventDetails = () => {
                     <div className="review-pending-notice">
                       <p>📝 Can't review until event is done</p>
                     </div>
-                  )}
+                  )} */}
                 </div>
               ) : (
                 <div className="no-manager">
@@ -361,7 +366,8 @@ const EventDetails = () => {
                         <h3>{manager.name}</h3>
                         <p>{manager.email}</p>
                         {manager.phone && <p>📞 {manager.phone}</p>}
-                        {manager.averageRating > 0 && (
+                        {/* RATING_FEATURE: Uncomment below to show manager ratings in finder */}
+                        {/* {manager.averageRating > 0 && (
                           <div className="rating-display" style={{ marginTop: '0.5rem' }}>
                             <span className="rating-stars">⭐ {manager.averageRating.toFixed(1)}</span>
                             <span
@@ -374,7 +380,7 @@ const EventDetails = () => {
                               ({manager.totalRatings} review{manager.totalRatings !== 1 ? 's' : ''})
                             </span>
                           </div>
-                        )}
+                        )} */}
                       </div>
                       <button
                         onClick={() => handleAssignManager(manager._id)}
@@ -391,8 +397,8 @@ const EventDetails = () => {
           </div>
         )}
 
-        {/* Rating Modal */}
-        {showRatingModal && userToRate && (
+        {/* RATING_FEATURE: Uncomment below to enable Rating Modal */}
+        {/* {showRatingModal && userToRate && (
           <RatingModal
             eventId={id}
             user={userToRate}
@@ -400,10 +406,10 @@ const EventDetails = () => {
             onClose={() => setShowRatingModal(false)}
             onSuccess={handleRatingSuccess}
           />
-        )}
+        )} */}
 
-        {/* Reviews Modal */}
-        {showReviewsModal && reviewsUser && (
+        {/* RATING_FEATURE: Uncomment below to enable Reviews Modal */}
+        {/* {showReviewsModal && reviewsUser && (
           <ReviewsModal
             user={reviewsUser}
             onClose={() => {
@@ -411,7 +417,7 @@ const EventDetails = () => {
               setReviewsUser(null);
             }}
           />
-        )}
+        )} */}
       </div>
     </div>
   );

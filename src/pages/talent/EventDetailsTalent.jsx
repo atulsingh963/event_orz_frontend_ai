@@ -277,11 +277,12 @@ const EventDetailsTalent = () => {
                           <div className="team-member-name">{invitation.talent?.name}</div>
                           <div className="team-member-skill">{invitation.skill}</div>
                         </div>
-                        {invitation.talent?.averageRating > 0 && (
+                        {/* RATING_FEATURE: Uncomment below to show talent ratings in team list */}
+                        {/* {invitation.talent?.averageRating > 0 && (
                           <div className="team-member-rating">
                             ⭐ {invitation.talent.averageRating.toFixed(1)}
                           </div>
-                        )}
+                        )} */}
                       </div>
                     ))}
                 </div>
