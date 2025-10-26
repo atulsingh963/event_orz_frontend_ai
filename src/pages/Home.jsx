@@ -68,14 +68,15 @@ const Home = () => {
       </div>
 
       {/* Featured Spaces Section */}
-      <div className="featured-section" style={{
+      <div className="featured-section-wrapper" style={{
         backgroundImage: `url(${indiaMapBg})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundAttachment: 'fixed'
       }}>
-        <h2 className="featured-title">Featured Spaces</h2>
-        <div className="venues-grid">
+        <div className="featured-section">
+          <h2 className="featured-title">Featured Spaces</h2>
+          <div className="venues-grid">
           {venues.length === 0 ? (
             <div className="empty-venues">
               <p>No venues available. Please add some venues first.</p>
@@ -111,6 +112,7 @@ const Home = () => {
               </Link>
             ))
           )}
+          </div>
         </div>
       </div>
 
