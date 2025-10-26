@@ -60,6 +60,9 @@ const ManagerDashboard = () => {
               </div>
 
               <div className="event-card-actions">
+                <Link to={`/manager/events/${event._id}`} className="btn-secondary">
+                  View Details
+                </Link>
                 <Link to={`/manager/events/${event._id}/talents`} className="btn-primary">
                   Manage Talents
                 </Link>

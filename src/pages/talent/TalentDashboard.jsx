@@ -73,22 +73,27 @@ const TalentDashboard = () => {
                   </div>
                 </div>
 
-                {invitation.status === 'pending' && (
-                  <div className="invitation-actions">
-                    <button
-                      onClick={() => handleRespond(invitation._id, 'accepted')}
-                      className="btn-primary"
-                    >
-                      Accept
-                    </button>
-                    <button
-                      onClick={() => handleRespond(invitation._id, 'rejected')}
-                      className="btn-danger"
-                    >
-                      Reject
-                    </button>
-                  </div>
-                )}
+                <div className="invitation-actions">
+                  <Link to={`/talent/events/${invitation.event?._id}`} className="btn-secondary">
+                    View Event Details
+                  </Link>
+                  {invitation.status === 'pending' && (
+                    <>
+                      <button
+                        onClick={() => handleRespond(invitation._id, 'accepted')}
+                        className="btn-primary"
+                      >
+                        Accept
+                      </button>
+                      <button
+                        onClick={() => handleRespond(invitation._id, 'rejected')}
+                        className="btn-danger"
+                      >
+                        Reject
+                      </button>
+                    </>
+                  )}
+                </div>
 
                 {invitation.status === 'accepted' && (
                   <div className="invitation-info">

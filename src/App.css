@@ -1489,3 +1489,155 @@ body {
   border-radius: 6px;
   border-left: 3px solid #667eea;
 }
+
+/* Event Details - Recent Invitations */
+.recent-invitations-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.recent-invitation-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+}
+
+.invitation-talent-info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex: 1;
+}
+
+.talent-avatar-small {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.invitation-talent-name {
+  font-weight: 600;
+  color: #1a1a2e;
+  font-size: 0.95rem;
+}
+
+.invitation-skill-small {
+  font-size: 0.85rem;
+  color: #667eea;
+  font-weight: 500;
+}
+
+.view-all-link {
+  display: block;
+  text-align: center;
+  color: #667eea;
+  font-weight: 600;
+  padding: 0.75rem;
+  text-decoration: none;
+  border-top: 1px solid #e9ecef;
+  margin-top: 0.5rem;
+}
+
+.view-all-link:hover {
+  color: #764ba2;
+  background: #f8f9fa;
+}
+
+.contact-info {
+  color: #666;
+  font-size: 0.9rem;
+  margin-top: 0.25rem;
+}
+
+/* Talent Event Details - Invitation Status Banner */
+.invitation-status-banner {
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  border: 2px solid;
+}
+
+.invitation-status-banner.status-pending {
+  background: #fff3cd;
+  border-color: #ffc107;
+}
+
+.invitation-status-banner.status-accepted {
+  background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+  border-color: #28a745;
+}
+
+.invitation-status-banner.status-rejected {
+  background: #f8d7da;
+  border-color: #dc3545;
+}
+
+.invitation-status-content h3 {
+  margin: 0 0 1rem 0;
+  color: #1a1a2e;
+  font-size: 1.3rem;
+}
+
+.invitation-status-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.invitation-status-details p {
+  margin: 0;
+  color: #333;
+  font-size: 0.95rem;
+}
+
+/* Talents Team List */
+.talents-team-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.team-member-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+}
+
+.team-member-info {
+  flex: 1;
+}
+
+.team-member-name {
+  font-weight: 600;
+  color: #1a1a2e;
+  font-size: 0.95rem;
+}
+
+.team-member-skill {
+  font-size: 0.85rem;
+  color: #667eea;
+  font-weight: 500;
+}
+
+.team-member-rating {
+  color: #ffc107;
+  font-weight: 600;
+  font-size: 0.9rem;
+}

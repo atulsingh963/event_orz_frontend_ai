@@ -13,8 +13,10 @@ import EventDetails from './pages/organizer/EventDetails';
 
 import ManagerDashboard from './pages/manager/ManagerDashboard';
 import ManageTalents from './pages/manager/ManageTalents';
+import EventDetailsManager from './pages/manager/EventDetailsManager';
 
 import TalentDashboard from './pages/talent/TalentDashboard';
+import EventDetailsTalent from './pages/talent/EventDetailsTalent';
 import Profile from './pages/Profile';
 
 import './App.css';
@@ -68,6 +70,14 @@ function App() {
                 }
               />
               <Route
+                path="/manager/events/:id"
+                element={
+                  <PrivateRoute roles={['eventManager']}>
+                    <EventDetailsManager />
+                  </PrivateRoute>
+                }
+              />
+              <Route
                 path="/manager/events/:eventId/talents"
                 element={
                   <PrivateRoute roles={['eventManager']}>
@@ -82,6 +92,14 @@ function App() {
                 element={
                   <PrivateRoute roles={['talent']}>
                     <TalentDashboard />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/talent/events/:id"
+                element={
+                  <PrivateRoute roles={['talent']}>
+                    <EventDetailsTalent />
                   </PrivateRoute>
                 }
               />
