@@ -3,6 +3,7 @@ import { AuthProvider } from './context/AuthContext';
 
 import indiaMapBg from './assets/india_earth_satellite_map.jpg';
 
+
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import PrivateRoute from './components/PrivateRoute';
