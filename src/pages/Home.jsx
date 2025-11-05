@@ -48,6 +48,9 @@ const Home = () => {
           <div className="hero-content">
             <h1 className="hero-title">Flexible Venues.<br />Flexible Rates. FAST.</h1>
             <p className="hero-subtitle">Find & Book Spaces for Your Creative Events</p>
+            <p style={{ color: '#ff4444', fontSize: '0.9rem', marginTop: '0.5rem', fontWeight: '500' }}>
+              Currently our service is available only in Bhopal with 20 best places
+            </p>
 
             <form className="search-form" onSubmit={handleSearch}>
               <input
@@ -73,14 +76,23 @@ const Home = () => {
       </div>
 
       {/* Featured Spaces Section */}
-      <div className="featured-section-wrapper" style={{
-        backgroundImage: `url(${indiaMapBg})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundAttachment: 'fixed'
-      }}>
+      <div className="featured-section-wrapper">
         <div className="featured-section">
-          <h2 className="featured-title">Featured Spaces</h2>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
+            <h2 className="featured-title">Featured Spaces</h2>
+            <Link to="/venues" className="btn-view-all" style={{
+              padding: '0.75rem 1.5rem',
+              background: 'white',
+              color: '#667eea',
+              textDecoration: 'none',
+              borderRadius: '8px',
+              fontWeight: '600',
+              boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+              transition: 'all 0.3s ease'
+            }}>
+              View All {venues.length > 6 ? venues.length : ''} Venues →
+            </Link>
+          </div>
           <div className="venues-grid">
           {venues.length === 0 ? (
             <div className="empty-venues">

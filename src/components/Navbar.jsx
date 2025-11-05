@@ -47,6 +47,9 @@ const Navbar = () => {
         </Link>
 
         <div className="nav-center">
+          <Link to="/venues" className="nav-link">
+            <span className="search-icon">🏛️</span> Browse Venues
+          </Link>
           {isAuthenticated && user.role === 'eventOrganizer' && (
             <Link to="/" className="nav-link">
               <span className="search-icon">🔍</span> Search

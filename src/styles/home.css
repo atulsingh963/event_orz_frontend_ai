@@ -277,7 +277,7 @@
 
 /* How It Works Section */
 .how-it-works-section {
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  background: transparent;
   padding: 5rem 2rem;
   margin-top: 3rem;
 }

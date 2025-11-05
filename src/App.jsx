@@ -1,5 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
+
+import indiaMapBg from './assets/india_earth_satellite_map.jpg';
+
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import PrivateRoute from './components/PrivateRoute';
@@ -7,10 +10,12 @@ import PrivateRoute from './components/PrivateRoute';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import Venues from './pages/Venues';
 
 import OrganizerDashboard from './pages/organizer/OrganizerDashboard';
 import CreateEventNew from './pages/organizer/CreateEventNew';
 import EventDetails from './pages/organizer/EventDetails';
+
 
 import ManagerDashboard from './pages/manager/ManagerDashboard';
 import ManageTalents from './pages/manager/ManageTalents';
@@ -22,6 +27,7 @@ import Profile from './pages/Profile';
 
 import './App.css';
 import './styles/home.css';
+import './styles/venues.css';
 
 function App() {
   return (
@@ -29,11 +35,17 @@ function App() {
       <AuthProvider>
         <div className="app">
           <Navbar />
-          <main className="main-content">
+          <main className="main-content"  style={{
+                  backgroundImage: `url(${indiaMapBg})`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                  backgroundAttachment: 'fixed'
+                }}>
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
+              <Route path="/venues" element={<Venues />} />
 
               {/* Event Organizer Routes */}
               <Route

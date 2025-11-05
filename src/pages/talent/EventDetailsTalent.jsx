@@ -136,73 +136,78 @@ const EventDetailsTalent = () => {
           </div>
         )}
 
-        {/* Main Content Grid */}
+        {/* Main Content Grid - Restricted Talent View */}
         <div className="event-details-grid">
           {/* Left Column */}
           <div className="details-column">
             <div className="details-card">
-              <h2>Event Information</h2>
+              <h2>Your Role</h2>
+              {myInvitation ? (
+                <>
+                  <div className="info-item">
+                    <strong>Skill/Role:</strong>
+                    <p>{myInvitation.skill}</p>
+                  </div>
+                  {myInvitation.compensation && (
+                    <div className="info-item">
+                      <strong>Compensation:</strong>
+                      <p className="compensation-amount">₹{myInvitation.compensation.amount}</p>
+                    </div>
+                  )}
+                  {myInvitation.message && (
+                    <div className="info-item">
+                      <strong>Instructions:</strong>
+                      <p>{myInvitation.message}</p>
+                    </div>
+                  )}
+                </>
+              ) : (
+                <p>No invitation details available.</p>
+              )}
+            </div>
+
+            <div className="details-card">
+              <h2>Event Details</h2>
               <div className="info-item">
-                <strong>Description:</strong>
-                <p>{event.description}</p>
+                <strong>Event Name:</strong>
+                <p>{event.title}</p>
               </div>
               <div className="info-item">
-                <strong>Category:</strong>
-                <p>{event.category}</p>
+                <strong>Event Type:</strong>
+                <p>{event.category || 'Not specified'}</p>
+              </div>
+              <div className="info-item">
+                <strong>Date:</strong>
+                <p>📅 {new Date(event.eventDate).toLocaleDateString()}</p>
+              </div>
+              <div className="info-item">
+                <strong>Time:</strong>
+                <p>🕐 {event.startTime} - {event.endTime}</p>
               </div>
               <div className="info-item">
                 <strong>Expected Attendees:</strong>
-                <p>{event.attendees || 'Not specified'}</p>
+                <p>👥 {event.attendees || 'Not specified'}</p>
               </div>
             </div>
 
             <div className="details-card">
-              <h2>Venue Details</h2>
+              <h2>Venue Information</h2>
               <div className="info-item">
-                <strong>Venue:</strong>
+                <strong>Venue Name:</strong>
                 <p>{event.venue?.name}</p>
               </div>
               <div className="info-item">
-                <strong>Location:</strong>
-                <p>{event.venue?.location?.address}, {event.venue?.location?.city}, {event.venue?.location?.state}</p>
-              </div>
-              <div className="info-item">
-                <strong>Capacity:</strong>
-                <p>{event.venue?.capacity} people</p>
+                <strong>Address:</strong>
+                <p>{event.venue?.location?.address}</p>
+                <p>{event.venue?.location?.city}, {event.venue?.location?.state}</p>
               </div>
             </div>
-
-            {event.addOns && event.addOns.length > 0 && (
-              <div className="details-card">
-                <h2>Event Add-ons</h2>
-                <div className="addons-list">
-                  {event.addOns.map((addon, index) => (
-                    <div key={index} className="addon-item">
-                      <div className="addon-header">
-                        <div className="addon-name">{addon.name}</div>
-                        {addon.category && (
-                          <span className="addon-category-badge">{addon.category}</span>
-                        )}
-                      </div>
-                      {addon.description && <div className="addon-desc">{addon.description}</div>}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
           </div>
 
           {/* Right Column */}
           <div className="details-column">
             <div className="details-card">
               <h2>Contact Information</h2>
-              <div className="info-item">
-                <strong>Organizer:</strong>
-                <p>{event.organizer?.name}</p>
-                {event.organizer?.email && <p className="contact-info">📧 {event.organizer.email}</p>}
-                {event.organizer?.phone && <p className="contact-info">📞 {event.organizer.phone}</p>}
-              </div>
-
               {event.eventManager && (
                 <div className="info-item">
                   <strong>Event Manager:</strong>
@@ -210,7 +215,7 @@ const EventDetailsTalent = () => {
                     <div className="manager-avatar">{event.eventManager.name?.charAt(0)}</div>
                     <div>
                       <div className="manager-name">{event.eventManager.name}</div>
-                      <div className="manager-email">{event.eventManager.email}</div>
+                      <div className="manager-email">📧 {event.eventManager.email}</div>
                       {event.eventManager.phone && (
                         <div className="manager-phone">📞 {event.eventManager.phone}</div>
                       )}
@@ -218,75 +223,56 @@ const EventDetailsTalent = () => {
                   </div>
                 </div>
               )}
-
-              {event.status !== 'completed' && myInvitation?.status === 'accepted' && (
-                <div className="review-pending-notice" style={{ marginTop: '1rem' }}>
-                  <p>📝 Can't review until event is done</p>
-                </div>
-              )}
+              
+              <div className="info-item" style={{ marginTop: event.eventManager ? '1rem' : '0' }}>
+                <strong>Event Organizer:</strong>
+                <p>{event.organizer?.name}</p>
+                {event.organizer?.email && <p className="contact-info">📧 {event.organizer.email}</p>}
+                {event.organizer?.phone && <p className="contact-info">📞 {event.organizer.phone}</p>}
+              </div>
+              
+              <p style={{ marginTop: '1rem', fontSize: '0.9rem', color: '#666', fontStyle: 'italic' }}>
+                {event.eventManager 
+                  ? 'Contact the event manager for day-to-day questions, or the organizer for general inquiries.'
+                  : 'Contact the event organizer for any questions or concerns.'}
+              </p>
             </div>
 
             <div className="details-card">
-              <h2>Talent Team Progress</h2>
-              <div className="talent-progress">
-                <div className="progress-bar">
-                  <div
-                    className="progress-fill"
-                    style={{ width: `${talentStats.total > 0 ? (talentStats.accepted / talentStats.total) * 100 : 0}%` }}
-                  />
-                </div>
-                <p className="progress-text">
-                  {talentStats.accepted} of {talentStats.total} talents confirmed
+              <h2>Event Status</h2>
+              <div className="info-item">
+                <strong>Current Status:</strong>
+                <p>
+                  <span className={`status-badge status-${event.status}`}>
+                    {event.status === 'confirmed' ? 'Confirmed - Ready to Go' : event.status}
+                  </span>
                 </p>
               </div>
-
-              <div className="talents-list">
-                {event.requiredSkills?.map((skill, index) => {
-                  const invitedCount = allInvitations.filter(
-                    inv => inv.skill === skill.skill && inv.status === 'accepted'
-                  ).length;
-
-                  return (
-                    <div key={index} className="talent-requirement">
-                      <div className="talent-skill">{skill.skill}</div>
-                      <div className="talent-count">
-                        {invitedCount}/{skill.count} confirmed
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-
-            <div className="details-card">
-              <h2>Other Talents</h2>
-              {allInvitations.filter(inv => inv.status === 'accepted').length === 0 ? (
-                <div className="empty-state-hint">
-                  No other talents confirmed yet.
-                </div>
-              ) : (
-                <div className="talents-team-list">
-                  {allInvitations
-                    .filter(inv => inv.status === 'accepted')
-                    .map((invitation) => (
-                      <div key={invitation._id} className="team-member-item">
-                        <div className="talent-avatar-small">
-                          {invitation.talent?.name?.charAt(0)}
-                        </div>
-                        <div className="team-member-info">
-                          <div className="team-member-name">{invitation.talent?.name}</div>
-                          <div className="team-member-skill">{invitation.skill}</div>
-                        </div>
-                        {/* RATING_FEATURE: Uncomment below to show talent ratings in team list */}
-                        {/* {invitation.talent?.averageRating > 0 && (
-                          <div className="team-member-rating">
-                            ⭐ {invitation.talent.averageRating.toFixed(1)}
-                          </div>
-                        )} */}
-                      </div>
-                    ))}
+              {myInvitation && (
+                <div className="info-item">
+                  <strong>Your Status:</strong>
+                  <p>
+                    <span className={`status-badge status-${myInvitation.status}`}>
+                      {myInvitation.status.toUpperCase()}
+                    </span>
+                  </p>
                 </div>
               )}
+            </div>
+
+            {event.status === 'confirmed' && myInvitation?.status === 'accepted' && (
+              <div className="details-card" style={{ backgroundColor: '#e8f5e9', borderColor: '#4caf50' }}>
+                <h2 style={{ color: '#2e7d32' }}>✓ All Set!</h2>
+                <p>The event is confirmed and ready. See you there!</p>
+              </div>
+            )}
+
+            <div className="details-card" style={{ backgroundColor: '#f5f5f5' }}>
+              <h2>Important Note</h2>
+              <p style={{ fontSize: '0.9rem', lineHeight: '1.6', color: '#555' }}>
+                💡 This view shows only the essential information you need for the event. 
+                If you have any questions, please contact the event manager or organizer listed above.
+              </p>
             </div>
           </div>
         </div>

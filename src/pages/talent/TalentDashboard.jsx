@@ -59,19 +59,21 @@ const TalentDashboard = () => {
                 </div>
 
                 <div className="invitation-body">
-                  <p className="event-description">{invitation.event?.description}</p>
                   <div className="invitation-details">
-                    <p><strong>Skill Required:</strong> {invitation.skill}</p>
+                    <p><strong>Your Role:</strong> {invitation.skill}</p>
                     <p><strong>Date:</strong> {new Date(invitation.event?.eventDate).toLocaleDateString()}</p>
                     <p><strong>Time:</strong> {invitation.event?.startTime} - {invitation.event?.endTime}</p>
-                    <p><strong>From:</strong> {invitation.invitedBy?.name}</p>
+                    <p><strong>Expected Attendees:</strong> {invitation.event?.attendees ?? 'Not specified'}</p>
+                    <p><strong>Venue:</strong> {invitation.event?.venue?.name || 'TBD'}</p>
+                    <p><strong>Location:</strong> {invitation.event?.venue?.location?.city || 'TBD'}</p>
                     {invitation.compensation && (
-                      <p><strong>Compensation:</strong> ₹{invitation.compensation.amount}</p>
+                      <p><strong>Payment:</strong> ₹{invitation.compensation.amount}</p>
                     )}
                     {invitation.message && (
                       <p><strong>Message:</strong> {invitation.message}</p>
                     )}
-                    <p><strong>Expiry:</strong> {new Date(invitation.expiryDate).toLocaleDateString()}</p>
+                    <p><strong>Invited by:</strong> {invitation.invitedBy?.name}</p>
+                    <p><strong>Respond by:</strong> {new Date(invitation.expiryDate).toLocaleDateString()}</p>
                   </div>
                 </div>
 
