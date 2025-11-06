@@ -73,6 +73,8 @@
 
 .btn-reset-filters:hover {
   background: #e2e8f0;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 /* Results Info */
@@ -208,6 +210,8 @@
 
 .btn-view-details:hover {
   background: #5568d3;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
 }
 
 /* No Venues Found */
