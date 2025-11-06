@@ -1,5 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import logo from '../assets/logo.png';
 
 const Navbar = () => {
   const { user, logout, isAuthenticated } = useAuth();
@@ -42,8 +43,7 @@ const Navbar = () => {
     <nav className="navbar">
       <div className="nav-container">
         <Link to="/" className="nav-brand">
-          <span className="brand-icon">📅</span>
-          <span className="brand-text">Event Organizer</span>
+          <img src={logo} alt="Event Organizer" className="brand-logo" />
         </Link>
 
         <div className="nav-center">

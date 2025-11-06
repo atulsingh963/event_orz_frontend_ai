@@ -46,6 +46,16 @@ body {
   text-decoration: none;
 }
 
+.brand-logo {
+  height: 50px;
+  width: auto;
+  transition: transform 0.3s ease;
+}
+
+.brand-logo:hover {
+  transform: scale(1.05);
+}
+
 .brand-icon {
   font-size: 1.8rem;
   background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
