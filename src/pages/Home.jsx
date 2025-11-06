@@ -48,7 +48,7 @@ const Home = () => {
           <div className="hero-content">
             <h1 className="hero-title">Flexible Venues.<br />Flexible Rates. FAST.</h1>
             <p className="hero-subtitle">Find & Book Spaces for Your Creative Events</p>
-            <p style={{ color: '#E52A2C', fontSize: '0.9rem', marginTop: '0.5rem', fontWeight: '500' }}>
+            <p style={{ color: '#E52A2C', fontSize: '1.2rem', marginTop: '0.5rem', fontWeight: '500' }}>
               Currently our service is available only in Bhopal with 20 best places
             </p>
 
