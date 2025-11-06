@@ -117,34 +117,57 @@ body {
   box-shadow: 0 4px 12px rgba(79, 172, 254, 0.4);
 }
 
+.btn-login {
+  background: white;
+  color: #4facfe;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.2s;
+  border: 2px solid #4facfe;
+}
+
+.btn-login:hover {
+  background: #4facfe;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(79, 172, 254, 0.4);
+}
+
 .btn-signup {
   background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
   color: white;
   padding: 0.6rem 1.2rem;
   border-radius: 6px;
   text-decoration: none;
-  font-weight: 500;
-  transition: transform 0.2s;
+  font-weight: 600;
+  transition: all 0.2s;
 }
 
 .btn-signup:hover {
   transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(79, 172, 254, 0.4);
 }
 
 .btn-logout {
   background: transparent;
   color: white;
-  border: 1px solid #444;
-  padding: 0.5rem 1rem;
+  border: 2px solid #ff4444;
+  padding: 0.6rem 1.2rem;
   border-radius: 6px;
   cursor: pointer;
   transition: all 0.2s;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
+  font-weight: 600;
 }
 
 .btn-logout:hover {
-  background: #2a2a3e;
-  border-color: #666;
+  background: #ff4444;
+  border-color: #ff4444;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 68, 68, 0.4);
 }
 
 /* Main Content */
