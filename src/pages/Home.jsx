@@ -46,9 +46,9 @@ const Home = () => {
       }}>
         <div className="hero-overlay">
           <div className="hero-content">
-            <h1 className="hero-title">Flexible Venues.<br />Flexible Rates. FAST.</h1>
-            <p className="hero-subtitle">Find & Book Spaces for Your Creative Events</p>
-            <p style={{ color: '#E52A2C', fontSize: '1.2rem', marginTop: '0.5rem', fontWeight: '500' }}>
+            <h1 className="hero-title animate-fade-in">Flexible Venues.<br />Flexible Rates. FAST.</h1>
+            <p className="hero-subtitle animate-fade-in-delay-1">Find & Book Spaces for Your Creative Events</p>
+            <p className="animate-fade-in-delay-2" style={{ color: '#E52A2C', fontSize: '1.2rem', marginTop: '0.5rem', fontWeight: '500' }}>
               Currently our service is available only in Bhopal with 20 best places
             </p>
 
@@ -135,7 +135,7 @@ const Home = () => {
 
       {/* How It Works Section */}
       <div className="how-it-works-section">
-        <h2>How It Works</h2>
+        <h2 className="animate-fade-in-up">How It Works</h2>
         <div className="steps-grid">
           <div className="step-card">
             <div className="step-number">1</div>
