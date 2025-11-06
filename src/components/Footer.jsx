@@ -6,7 +6,7 @@ const Footer = () => {
       <div className="footer-content">
         <div className="footer-grid">
           {/* Company Info */}
-          <div className="footer-section">
+          <div className="footer-section footer-animate-1">
             <h3 className="footer-heading">Event Organizer</h3>
             <p className="footer-description">
               Your ultimate platform for organizing memorable events. Connect with venues,
@@ -29,7 +29,7 @@ const Footer = () => {
           </div>
 
           {/* Quick Links */}
-          <div className="footer-section">
+          <div className="footer-section footer-animate-2">
             <h3 className="footer-heading">Quick Links</h3>
             <ul className="footer-links">
               <li><Link to="/">Home</Link></li>
@@ -41,7 +41,7 @@ const Footer = () => {
           </div>
 
           {/* Get Started */}
-          <div className="footer-section">
+          <div className="footer-section footer-animate-3">
             <h3 className="footer-heading">Get Started</h3>
             <ul className="footer-links">
               <li><Link to="/register?role=eventOrganizer">Register as Organizer</Link></li>
@@ -53,7 +53,7 @@ const Footer = () => {
           </div>
 
           {/* Resources */}
-          <div className="footer-section">
+          <div className="footer-section footer-animate-4">
             <h3 className="footer-heading">Resources</h3>
             <ul className="footer-links">
               <li><a href="#blog">Blog</a></li>

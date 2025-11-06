@@ -2123,6 +2123,38 @@ body {
   border-top: 3px solid #667eea;
 }
 
+/* Footer Animation */
+@keyframes footerFadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.footer-animate-1 {
+  animation: footerFadeInUp 0.8s ease-out 0.1s forwards;
+  opacity: 0;
+}
+
+.footer-animate-2 {
+  animation: footerFadeInUp 0.8s ease-out 0.3s forwards;
+  opacity: 0;
+}
+
+.footer-animate-3 {
+  animation: footerFadeInUp 0.8s ease-out 0.5s forwards;
+  opacity: 0;
+}
+
+.footer-animate-4 {
+  animation: footerFadeInUp 0.8s ease-out 0.7s forwards;
+  opacity: 0;
+}
+
 .footer-content {
   max-width: 1400px;
   margin: 0 auto;
