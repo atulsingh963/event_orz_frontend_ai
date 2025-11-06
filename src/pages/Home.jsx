@@ -80,16 +80,7 @@ const Home = () => {
         <div className="featured-section">
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
             <h2 className="featured-title">Featured Spaces</h2>
-            <Link to="/venues" className="btn-view-all" style={{
-              padding: '0.75rem 1.5rem',
-              background: 'white',
-              color: '#667eea',
-              textDecoration: 'none',
-              borderRadius: '8px',
-              fontWeight: '600',
-              boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-              transition: 'all 0.3s ease'
-            }}>
+            <Link to="/venues" className="btn-view-all">
               View All {venues.length > 6 ? venues.length : ''} Venues →
             </Link>
           </div>
