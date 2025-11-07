@@ -26,10 +26,6 @@ export const eventService = {
     return data;
   },
 
-  inviteEventManager: async (eventId, managerId) => {
-    const { data } = await API.post(`/events/${eventId}/invite-manager`, { managerId });
-    return data;
-  },
 
   addEventAddOns: async (eventId, addOns) => {
     const { data } = await API.post(`/events/${eventId}/addons`, { addOns });

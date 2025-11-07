@@ -33,13 +33,10 @@ const Register = () => {
       const user = JSON.parse(localStorage.getItem('user'));
       switch (user.role) {
         case 'eventOrganizer':
-          navigate('/');
-          break;
-        case 'eventManager':
-          navigate('/profile');
+          navigate('/organizer/dashboard');
           break;
         case 'talent':
-          navigate('/profile');
+          navigate('/talent/dashboard');
           break;
         default:
           navigate('/');
@@ -98,7 +95,6 @@ const Register = () => {
             <label>Role</label>
             <select name="role" value={formData.role} onChange={handleChange} required>
               <option value="talent">Talent</option>
-              <option value="eventManager">Event Manager</option>
               <option value="eventOrganizer">Event Organizer</option>
             </select>
             <small style={{ display: 'block', marginTop: '0.5rem', color: '#666' }}>

@@ -19,10 +19,31 @@ export const AuthProvider = ({ children }) => {
     const token = localStorage.getItem('token');
     const userData = localStorage.getItem('user');
 
-    if (token && userData) {
-      setUser(JSON.parse(userData));
-    }
-    setLoading(false);
+    const bootstrap = async () => {
+      try {
+        if (token) {
+          // Set any cached user first for instant UI, then refresh from server
+          if (userData) {
+            setUser(JSON.parse(userData));
+          }
+          const { data } = await API.get('/auth/me');
+          const merged = { ...data, token };
+          setUser(merged);
+          localStorage.setItem('user', JSON.stringify(merged));
+        } else if (userData) {
+          setUser(JSON.parse(userData));
+        }
+      } catch (err) {
+        // Token might be invalid/expired
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        setUser(null);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    bootstrap();
   }, []);
 
   const login = async (email, password) => {
@@ -55,6 +76,22 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const updateProfile = async (profileData) => {
+    try {
+      const { data } = await API.put('/auth/profile', profileData);
+      const token = localStorage.getItem('token');
+      const merged = { ...data, ...(token ? { token } : {}) };
+      localStorage.setItem('user', JSON.stringify(merged));
+      setUser(merged);
+      return { success: true, data: merged };
+    } catch (error) {
+      return {
+        success: false,
+        message: error.response?.data?.message || 'Profile update failed'
+      };
+    }
+  };
+
   const logout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
@@ -65,6 +102,7 @@ export const AuthProvider = ({ children }) => {
     user,
     login,
     register,
+    updateProfile,
     logout,
     loading,
     isAuthenticated: !!user

@@ -98,10 +98,10 @@ const EventDetailsManager = () => {
           </div>
 
           <div className="event-actions">
-            <Link to="/manager/dashboard" className="btn-secondary">
+            <Link to={'/organizer/talents'} className="btn-secondary">
               ← Back to Dashboard
             </Link>
-            <Link to={`/manager/events/${id}/talents`} className="btn-primary">
+            <Link to={`/organizer/events/${id}/talents`} className="btn-primary">
               Manage Talents
             </Link>
             {event.status === 'confirmed' && (
@@ -285,7 +285,7 @@ const EventDetailsManager = () => {
                 })}
               </div>
 
-              <Link to={`/manager/events/${id}/talents`} className="btn-primary" style={{ marginTop: '1rem', display: 'block', textAlign: 'center' }}>
+              <Link to={`/organizer/events/${id}/talents`} className="btn-primary" style={{ marginTop: '1rem', display: 'block', textAlign: 'center' }}>
                 Manage Talents & Invitations
               </Link>
             </div>
@@ -315,7 +315,7 @@ const EventDetailsManager = () => {
                     </div>
                   ))}
                   {invitations.length > 5 && (
-                    <Link to={`/manager/events/${id}/talents`} className="view-all-link">
+                    <Link to={`/organizer/events/${id}/talents`} className="view-all-link">
                       View all {invitations.length} invitations →
                     </Link>
                   )}

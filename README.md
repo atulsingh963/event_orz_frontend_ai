@@ -6,7 +6,7 @@ React + Vite frontend application for the Event Organizer Platform.
 
 - Role-based authentication and routing
 - Event Organizer dashboard with event creation
-- Event Manager dashboard with talent recruitment
+- Organizer talent management flows (recruitment)
 - Talent dashboard with invitation management
 - Rating and review system
 - Responsive design
@@ -73,10 +73,9 @@ src/
 ### Event Organizer Routes (Protected)
 - `/organizer/dashboard` - Organizer dashboard
 - `/organizer/create-event` - Create new event
-
-### Event Manager Routes (Protected)
-- `/manager/dashboard` - Manager dashboard
-- `/manager/events/:eventId/talents` - Manage event talents
+- `/organizer/talents` - Talent Management dashboard (manager capabilities)
+- `/organizer/events/:id/manage` - Event details for talent management
+- `/organizer/events/:eventId/talents` - Manage talents for an event
 
 ### Talent Routes (Protected)
 - `/talent/dashboard` - Talent dashboard with invitations

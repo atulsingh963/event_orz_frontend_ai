@@ -346,8 +346,8 @@ const ManageTalents = () => {
                       <div className="talent-skills-list">
                         <strong>Skills:</strong>
                         <div className="skills-tags">
-                          {talent.skills?.map((skill, idx) => (
-                            <span key={idx} className="skill-tag-small">{skill}</span>
+                          {talent.skills?.map((s, idx) => (
+                            <span key={idx} className="skill-tag-small">{s.skill}</span>
                           ))}
                         </div>
                       </div>

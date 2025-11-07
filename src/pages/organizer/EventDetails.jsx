@@ -24,7 +24,6 @@ const EventDetails = () => {
 
   useEffect(() => {
     fetchEventDetails();
-    fetchManagers();
     fetchInvitations();
   }, [id]);
 
@@ -258,52 +257,11 @@ const EventDetails = () => {
           {/* Right Column */}
           <div className="details-column">
             <div className="details-card">
-              <h2>Event Manager</h2>
-              {event.eventManager ? (
-                <div>
-                  <div className="manager-info">
-                    <div className="manager-avatar">{event.eventManager.name.charAt(0)}</div>
-                    <div>
-                      <div className="manager-name">{event.eventManager.name}</div>
-                      <div className="manager-email">{event.eventManager.email}</div>
-                      {event.eventManager.phone && <div className="manager-phone">📞 {event.eventManager.phone}</div>}
-                      {/* RATING_FEATURE: Uncomment below to show manager ratings */}
-                      {/* {event.eventManager.averageRating > 0 && (
-                        <div className="rating-display" style={{ marginTop: '0.5rem' }}>
-                          <span className="rating-stars">⭐ {event.eventManager.averageRating.toFixed(1)}</span>
-                          <span
-                            className="rating-count rating-count-clickable"
-                            onClick={() => handleViewReviews(event.eventManager)}
-                          >
-                            ({event.eventManager.totalRatings} review{event.eventManager.totalRatings !== 1 ? 's' : ''})
-                          </span>
-                        </div>
-                      )} */}
-                    </div>
-                  </div>
-                  {/* RATING_FEATURE: Uncomment below to enable rating button for event manager */}
-                  {/* {event.status === 'completed' ? (
-                    <button
-                      onClick={() => handleRateUser(event.eventManager, 'eventManager')}
-                      className="btn-rate"
-                      style={{ marginTop: '1rem', width: '100%' }}
-                    >
-                      ⭐ Rate Event Manager
-                    </button>
-                  ) : (
-                    <div className="review-pending-notice">
-                      <p>📝 Can't review until event is done</p>
-                    </div>
-                  )} */}
-                </div>
-              ) : (
-                <div className="no-manager">
-                  <p>No manager assigned yet</p>
-                  <button onClick={() => setShowManagerFinder(true)} className="btn-primary">
-                    Find Event Manager
-                  </button>
-                </div>
-              )}
+              <h2>Talent Management</h2>
+              <p>Manage all talent invitations and assignments for this event.</p>
+              <Link to={`/organizer/events/${id}/talents`} className="btn-primary" style={{ marginTop: '0.5rem', display: 'inline-block' }}>
+                Go to Talent Management
+              </Link>
             </div>
 
             <div className="details-card">
@@ -337,65 +295,13 @@ const EventDetails = () => {
                 })}
               </div>
 
-              {event.eventManager && (
-                <Link to={`/organizer/events/${id}/invitations`} className="btn-secondary" style={{ marginTop: '1rem', display: 'block', textAlign: 'center' }}>
-                  View All Invitations
-                </Link>
-              )}
+              <Link to={`/organizer/events/${id}/talents`} className="btn-secondary" style={{ marginTop: '1rem', display: 'block', textAlign: 'center' }}>
+                View All Invitations
+              </Link>
             </div>
           </div>
         </div>
 
-        {/* Manager Finder Modal */}
-        {showManagerFinder && (
-          <div className="modal">
-            <div className="modal-content" style={{ maxWidth: '800px' }}>
-              <div className="modal-header">
-                <h2>Find Event Manager</h2>
-                <button onClick={() => setShowManagerFinder(false)} className="btn-close">×</button>
-              </div>
-
-              <div className="managers-grid">
-                {managers.length === 0 ? (
-                  <p>No event managers available at the moment.</p>
-                ) : (
-                  managers.map(manager => (
-                    <div key={manager._id} className="manager-card">
-                      <div className="manager-card-avatar">{manager.name.charAt(0)}</div>
-                      <div className="manager-card-info">
-                        <h3>{manager.name}</h3>
-                        <p>{manager.email}</p>
-                        {manager.phone && <p>📞 {manager.phone}</p>}
-                        {/* RATING_FEATURE: Uncomment below to show manager ratings in finder */}
-                        {/* {manager.averageRating > 0 && (
-                          <div className="rating-display" style={{ marginTop: '0.5rem' }}>
-                            <span className="rating-stars">⭐ {manager.averageRating.toFixed(1)}</span>
-                            <span
-                              className="rating-count rating-count-clickable"
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                handleViewReviews(manager);
-                              }}
-                            >
-                              ({manager.totalRatings} review{manager.totalRatings !== 1 ? 's' : ''})
-                            </span>
-                          </div>
-                        )} */}
-                      </div>
-                      <button
-                        onClick={() => handleAssignManager(manager._id)}
-                        className="btn-primary"
-                        disabled={actionLoading}
-                      >
-                        Assign
-                      </button>
-                    </div>
-                  ))
-                )}
-              </div>
-            </div>
-          </div>
-        )}
 
         {/* RATING_FEATURE: Uncomment below to enable Rating Modal */}
         {/* {showRatingModal && userToRate && (

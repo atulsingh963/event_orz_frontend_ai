@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useParams } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 
 import indiaMapBg from './assets/india_earth_satellite_map.jpg';
@@ -12,23 +12,35 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Venues from './pages/Venues';
+import Talents from './pages/Talents';
 
 import OrganizerDashboard from './pages/organizer/OrganizerDashboard';
 import CreateEventNew from './pages/organizer/CreateEventNew';
 import EventDetails from './pages/organizer/EventDetails';
 
 
-import ManagerDashboard from './pages/manager/ManagerDashboard';
-import ManageTalents from './pages/manager/ManageTalents';
-import EventDetailsManager from './pages/manager/EventDetailsManager';
+import ManagerDashboard from './pages/organizer/ManagerDashboard';
+import ManageTalents from './pages/organizer/ManageTalents';
+import EventDetailsManager from './pages/organizer/EventDetailsManager';
 
 import TalentDashboard from './pages/talent/TalentDashboard';
 import EventDetailsTalent from './pages/talent/EventDetailsTalent';
 import Profile from './pages/Profile';
+import TalentProfile from './pages/TalentProfile';
 
 import './App.css';
 import './styles/home.css';
 import './styles/venues.css';
+
+// Redirect helpers for legacy manager paths
+const ManagerEventRedirect = () => {
+  const { id } = useParams();
+  return <Navigate to={`/organizer/events/${id}/manage`} replace />;
+};
+const ManagerEventTalentsRedirect = () => {
+  const { eventId } = useParams();
+  return <Navigate to={`/organizer/events/${eventId}/talents`} replace />;
+};
 
 function App() {
   return (
@@ -47,6 +59,7 @@ function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
               <Route path="/venues" element={<Venues />} />
+              <Route path="/talents" element={<Talents />} />
 
               {/* Event Organizer Routes */}
               <Route
@@ -73,32 +86,35 @@ function App() {
                   </PrivateRoute>
                 }
               />
-
-              {/* Event Manager Routes */}
+              {/* Organizer access to talent management flows (formerly manager) */}
               <Route
-                path="/manager/dashboard"
+                path="/organizer/talents"
                 element={
-                  <PrivateRoute roles={['eventManager']}>
+                  <PrivateRoute roles={['eventOrganizer']}>
                     <ManagerDashboard />
                   </PrivateRoute>
                 }
               />
               <Route
-                path="/manager/events/:id"
+                path="/organizer/events/:id/manage"
                 element={
-                  <PrivateRoute roles={['eventManager']}>
+                  <PrivateRoute roles={['eventOrganizer']}>
                     <EventDetailsManager />
                   </PrivateRoute>
                 }
               />
               <Route
-                path="/manager/events/:eventId/talents"
+                path="/organizer/events/:eventId/talents"
                 element={
-                  <PrivateRoute roles={['eventManager']}>
+                  <PrivateRoute roles={['eventOrganizer']}>
                     <ManageTalents />
                   </PrivateRoute>
                 }
               />
+
+
+              {/* Public Talent Profile */}
+              <Route path="/talents/:id" element={<TalentProfile />} />
 
               {/* Talent Routes */}
               <Route
@@ -127,6 +143,11 @@ function App() {
                   </PrivateRoute>
                 }
               />
+
+              {/* Legacy manager path redirects */}
+              <Route path="/manager/dashboard" element={<Navigate to="/organizer/talents" replace />} />
+              <Route path="/manager/events/:id" element={<ManagerEventRedirect />} />
+              <Route path="/manager/events/:eventId/talents" element={<ManagerEventTalentsRedirect />} />
 
               <Route path="*" element={<div className="not-found">404 - Page Not Found</div>} />
             </Routes>

@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { authService } from '../services/authService';
 
 const Profile = () => {
-  const { user } = useAuth();
+  const { user, updateProfile } = useAuth();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -19,12 +18,15 @@ const Profile = () => {
 
   useEffect(() => {
     if (user) {
+      const normalizedSkills = Array.isArray(user.skills)
+        ? user.skills.map((s) => (typeof s === 'string' ? s : s?.skill)).filter(Boolean)
+        : [];
       setFormData({
         name: user.name || '',
         email: user.email || '',
         phone: user.phone || '',
         bio: user.bio || '',
-        skills: user.skills || [],
+        skills: normalizedSkills,
         portfolio: user.portfolio || '',
         profileImage: user.profileImage || ''
       });
@@ -39,13 +41,17 @@ const Profile = () => {
   };
 
   const handleAddSkill = () => {
-    if (skillInput.trim() && !formData.skills.includes(skillInput.trim())) {
+    const newSkill = skillInput.trim();
+    if (!newSkill) return;
+    // Compare case-insensitively to avoid duplicates like "Singer" vs "singer"
+    const exists = formData.skills.some((s) => s.toLowerCase() === newSkill.toLowerCase());
+    if (!exists) {
       setFormData({
         ...formData,
-        skills: [...formData.skills, skillInput.trim()]
+        skills: [...formData.skills, newSkill]
       });
-      setSkillInput('');
     }
+    setSkillInput('');
   };
 
   const handleRemoveSkill = (skillToRemove) => {
@@ -61,14 +67,12 @@ const Profile = () => {
     setLoading(true);
 
     try {
-      const updatedUser = await authService.updateProfile(formData);
-
-      // Update localStorage
-      const storedUser = JSON.parse(localStorage.getItem('user'));
-      const newUserData = { ...storedUser, ...updatedUser };
-      localStorage.setItem('user', JSON.stringify(newUserData));
-
-      setMessage({ type: 'success', text: 'Profile updated successfully!' });
+      const result = await updateProfile(formData);
+      if (result.success) {
+        setMessage({ type: 'success', text: 'Profile updated successfully!' });
+      } else {
+        setMessage({ type: 'error', text: result.message || 'Failed to update profile' });
+      }
     } catch (error) {
       setMessage({
         type: 'error',

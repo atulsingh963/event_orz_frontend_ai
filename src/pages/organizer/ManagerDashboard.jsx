@@ -26,13 +26,13 @@ const ManagerDashboard = () => {
   return (
     <div className="dashboard-container">
       <div className="dashboard-header">
-        <h1>Event Manager Dashboard</h1>
+        <h1>Talent Management Dashboard</h1>
       </div>
 
       <div className="events-grid">
         {events.length === 0 ? (
           <div className="empty-state">
-            <p>No events assigned yet. Wait for an organizer to invite you!</p>
+            <p>No events yet.</p>
           </div>
         ) : (
           events.map(event => (
@@ -67,10 +67,10 @@ const ManagerDashboard = () => {
               </div>
 
               <div className="event-card-actions">
-                <Link to={`/manager/events/${event._id}`} className="btn-secondary">
+                <Link to={`/organizer/events/${event._id}/manage`} className="btn-secondary">
                   View Details
                 </Link>
-                <Link to={`/manager/events/${event._id}/talents`} className="btn-primary">
+                <Link to={`/organizer/events/${event._id}/talents`} className="btn-primary">
                   Manage Talents
                 </Link>
               </div>

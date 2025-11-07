@@ -16,9 +16,7 @@ const Navbar = () => {
 
     switch (user.role) {
       case 'eventOrganizer':
-        return '/organizer/dashboard'; // Event organizers see home page, but this is for "My Events"
-      case 'eventManager':
-        return '/manager/dashboard';
+        return '/organizer/dashboard';
       case 'talent':
         return '/talent/dashboard';
       default:
@@ -30,8 +28,6 @@ const Navbar = () => {
     switch (role) {
       case 'eventOrganizer':
         return 'Organizer';
-      case 'eventManager':
-        return 'Manager';
       case 'talent':
         return 'Talent';
       default:
@@ -50,6 +46,9 @@ const Navbar = () => {
           <Link to="/venues" className="nav-link">
             <span className="search-icon">🏛️</span> Browse Venues
           </Link>
+          <Link to="/talents" className="nav-link">
+            <span className="search-icon">🎤</span> Browse Talents
+          </Link>
           {isAuthenticated && user.role === 'eventOrganizer' && (
             <Link to="/" className="nav-link">
               <span className="search-icon">🔍</span> Search
@@ -66,13 +65,8 @@ const Navbar = () => {
                     List Your Space
                   </Link> */}
                   <Link to="/organizer/dashboard" className="nav-link">My Events</Link>
+                  <Link to="/organizer/talents" className="nav-link">Talent Management</Link>
                   <Link to="/profile" className="nav-link">My Profile</Link>
-                </>
-              )}
-              {user.role === 'eventManager' && (
-                <>
-                  <Link to={getDashboardLink()} className="nav-link">Dashboard</Link>
-                  <Link to="/profile" className="nav-link">Profile</Link>
                 </>
               )}
               {user.role === 'talent' && (

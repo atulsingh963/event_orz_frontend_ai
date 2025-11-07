@@ -31,10 +31,10 @@ const Login = () => {
       const user = JSON.parse(localStorage.getItem('user'));
       switch (user.role) {
         case 'eventOrganizer':
-          navigate('/');
+          navigate('/organizer/dashboard');
           break;
         case 'eventManager':
-          navigate('/manager/dashboard');
+          navigate('/organizer/talents');
           break;
         case 'talent':
           navigate('/talent/dashboard');

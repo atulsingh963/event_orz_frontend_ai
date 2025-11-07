@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { venueService } from '../services/venueService';
 import indiaMapBg from '../assets/india_earth_satellite_map.jpg';
 
 const Home = () => {
   const [venues, setVenues] = useState([]);
-  const [searchData, setSearchData] = useState({
-    eventType: '',
-    location: ''
-  });
+  // Talent search state (single input)
+  const [talentQuery, setTalentQuery] = useState('');
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchFeaturedVenues();
@@ -25,15 +25,15 @@ const Home = () => {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    // Filter venues based on search
-    const filtered = venues.filter(venue => {
-      const matchesLocation = searchData.location
-        ? venue.location.city.toLowerCase().includes(searchData.location.toLowerCase())
-        : true;
-      return matchesLocation;
-    });
-    setVenues(filtered);
+    const skill = talentQuery.trim();
+    navigate(skill ? `/talents?skill=${encodeURIComponent(skill)}` : '/talents');
   };
+
+  // Simple suggestions (can be replaced by API-powered autocomplete)
+  const SUGGESTIONS = ['singer', 'dj', 'guitarist', 'dancer', 'anchor', 'comedian', 'photographer', 'violinist', 'magician', 'band'];
+  const filteredSuggestions = talentQuery
+    ? SUGGESTIONS.filter(s => s.toLowerCase().includes(talentQuery.toLowerCase())).slice(0, 6)
+    : SUGGESTIONS.slice(0, 6);
 
   return (
     <div className="home-container-new">
@@ -48,28 +48,39 @@ const Home = () => {
           <div className="hero-content">
             <h1 className="hero-title animate-fade-in">Flexible Venues.<br />Flexible Rates. FAST.</h1>
             <p className="hero-subtitle animate-fade-in-delay-1">Find & Book Spaces for Your Creative Events</p>
-            <p className="animate-fade-in-delay-2" style={{ color: '#E52A2C', fontSize: '1.2rem', marginTop: '0.5rem', fontWeight: '500' }}>
+            <p className="animate-fade-in-delay-2" style={{ color: 'var(--color-gold)', fontSize: '1.5rem', marginTop: '0.5rem', fontWeight: 700 }}>
               Currently our service is available only in Bhopal with 20 best places
             </p>
 
-            <form className="search-form" onSubmit={handleSearch}>
+            <form className="search-form" onSubmit={handleSearch} style={{ position: 'relative' }}>
               <input
                 type="text"
-                placeholder="What are you planning?"
+                placeholder="Search for talents (e.g., singer, dj)"
                 className="search-input"
-                value={searchData.eventType}
-                onChange={(e) => setSearchData({ ...searchData, eventType: e.target.value })}
-              />
-              <input
-                type="text"
-                placeholder="Where? (Enter a city)"
-                className="search-input"
-                value={searchData.location}
-                onChange={(e) => setSearchData({ ...searchData, location: e.target.value })}
+                value={talentQuery}
+                onChange={(e) => { setTalentQuery(e.target.value); setShowSuggestions(true); }}
+                onFocus={() => setShowSuggestions(true)}
               />
               <button type="submit" className="search-button">
-                Search
+                Search Talents
               </button>
+
+              {showSuggestions && (
+                <div className="suggestions" onMouseLeave={() => setShowSuggestions(false)}>
+                  {filteredSuggestions.map((s, idx) => (
+                    <div
+                      key={idx}
+                      className="suggestion-item"
+                      onMouseDown={() => { // use onMouseDown to trigger before input loses focus
+                        setTalentQuery(s);
+                        navigate(`/talents?skill=${encodeURIComponent(s)}`);
+                      }}
+                    >
+                      {s}
+                    </div>
+                  ))}
+                </div>
+              )}
             </form>
           </div>
         </div>

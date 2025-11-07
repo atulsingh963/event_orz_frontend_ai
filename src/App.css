@@ -4,13 +4,26 @@
   box-sizing: border-box;
 }
 
+:root {
+  --color-black: #000000;
+  --color-navy: #0b1f3b;
+  --color-gold: #FE9B06;
+  --color-gold-dark: #d48806;
+  --color-gray: #E5E5E5;
+  --color-white: #FFFFFF;
+
+  --primary: var(--color-gold);
+  --primary-contrast: var(--color-black);
+  --accent: var(--color-navy);
+}
+
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #f5f5f5;
+  background-color: var(--color-gray);
 }
 
 .app {
@@ -21,8 +34,8 @@ body {
 
 /* Navbar */
 .navbar {
-  background: #1a1a2e;
-  color: white;
+  background: linear-gradient(90deg, var(--color-black), var(--color-navy));
+  color: var(--color-white);
   padding: 0.75rem 2rem;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   position: sticky;
@@ -58,14 +71,14 @@ body {
 
 .brand-icon {
   font-size: 1.8rem;
-  background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
+  background: linear-gradient(135deg, var(--color-gold) 0%, #ffb74a 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .brand-text {
-  background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
+  background: linear-gradient(135deg, var(--color-gold) 0%, #ffb74a 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -95,7 +108,7 @@ body {
 }
 
 .nav-link:hover {
-  color: #4facfe;
+  color: var(--color-gold);
 }
 
 .user-info {
@@ -107,14 +120,14 @@ body {
 }
 
 .user-role-badge {
-  color: #00f2fe;
+  color: var(--color-gold);
   font-weight: 600;
   font-size: 0.85rem;
 }
 
 .btn-list-space {
-  background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
-  color: white;
+  background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-gold-dark) 100%);
+  color: var(--color-black);
   padding: 0.6rem 1.2rem;
   border-radius: 6px;
   text-decoration: none;
@@ -124,12 +137,12 @@ body {
 
 .btn-list-space:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(79, 172, 254, 0.4);
+  box-shadow: 0 4px 12px rgba(254, 155, 6, 0.4);
 }
 
 .btn-login {
-  background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
-  color: white;
+  background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-gold-dark) 100%);
+  color: var(--color-black);
   padding: 0.6rem 1.2rem;
   border-radius: 6px;
   text-decoration: none;
@@ -140,12 +153,12 @@ body {
 
 .btn-login:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(79, 172, 254, 0.4);
+  box-shadow: 0 4px 12px rgba(254, 155, 6, 0.4);
 }
 
 .btn-signup {
-  background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
-  color: white;
+  background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-gold-dark) 100%);
+  color: var(--color-black);
   padding: 0.6rem 1.2rem;
   border-radius: 6px;
   text-decoration: none;
@@ -155,7 +168,7 @@ body {
 
 .btn-signup:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(79, 172, 254, 0.4);
+  box-shadow: 0 4px 12px rgba(254, 155, 6, 0.4);
 }
 
 .btn-logout {
@@ -202,7 +215,7 @@ body {
 .hero-section h1 {
   font-size: 3rem;
   margin-bottom: 1rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, var(--color-gold) 0%, #ffb74a 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -258,24 +271,24 @@ body {
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-gold-dark) 100%);
+  color: var(--color-black);
 }
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 4px 8px rgba(254, 155, 6, 0.4);
 }
 
 .btn-secondary {
-  background: #6c757d;
-  color: white;
+  background: var(--color-navy);
+  color: var(--color-white);
 }
 
 .btn-secondary:hover {
-  background: #5a6268;
+  background: #081a2f;
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(108, 117, 125, 0.4);
+  box-shadow: 0 4px 8px rgba(11, 31, 59, 0.4);
 }
 
 .btn-danger {
@@ -316,7 +329,7 @@ body {
 .auth-card h2 {
   text-align: center;
   margin-bottom: 1.5rem;
-  color: #667eea;
+  color: var(--color-gold);
 }
 
 .form-group {
@@ -344,7 +357,7 @@ body {
 .form-group select:focus,
 .form-group textarea:focus {
   outline: none;
-  border-color: #667eea;
+  border-color: var(--color-gold);
 }
 
 .error-message {
@@ -369,7 +382,7 @@ body {
 }
 
 .auth-link a {
-  color: #667eea;
+  color: var(--color-gold);
   text-decoration: none;
 }
 
@@ -410,18 +423,18 @@ body {
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
-.event-card-confirmed {
-  border: 2px solid #28a745;
-  box-shadow: 0 4px 16px rgba(40, 167, 69, 0.2);
+ .event-card-confirmed {
+  border: 2px solid var(--color-gold);
+  box-shadow: 0 4px 16px rgba(254, 155, 6, 0.25);
 }
 
 .event-card-confirmed:hover {
-  box-shadow: 0 6px 20px rgba(40, 167, 69, 0.3);
+  box-shadow: 0 6px 20px rgba(254, 155, 6, 0.35);
 }
 
 .event-ready-indicator {
-  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
-  color: white;
+  background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-gold-dark) 100%);
+  color: var(--color-black);
   padding: 0.75rem 1rem;
   border-radius: 6px;
   display: flex;
@@ -429,7 +442,7 @@ body {
   gap: 0.5rem;
   margin-bottom: 1rem;
   font-weight: 600;
-  box-shadow: 0 2px 8px rgba(40, 167, 69, 0.3);
+  box-shadow: 0 2px 8px rgba(254, 155, 6, 0.3);
 }
 
 .ready-icon {
@@ -457,33 +470,30 @@ body {
   padding: 0.25rem 0.75rem;
   border-radius: 12px;
   font-size: 0.85rem;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .status-draft { background: #e9ecef; color: #495057; }
-.status-planning { background: #cfe2ff; color: #084298; }
-.status-recruiting { background: #fff3cd; color: #664d03; }
+.status-planning { background: rgba(11, 31, 59, 0.12); color: var(--color-navy); }
+.status-recruiting { background: rgba(254, 155, 6, 0.18); color: #a66900; }
 .status-confirmed {
-  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
-  color: white;
-  font-weight: 600;
-  box-shadow: 0 2px 4px rgba(40, 167, 69, 0.3);
+  background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-gold-dark) 100%);
+  color: var(--color-black);
+  box-shadow: 0 2px 4px rgba(254, 155, 6, 0.3);
 }
 .status-ongoing {
-  background: linear-gradient(135deg, #fd7e14 0%, #ff9800 100%);
-  color: white;
-  font-weight: 600;
-  box-shadow: 0 2px 4px rgba(253, 126, 20, 0.3);
+  background: linear-gradient(135deg, var(--color-navy) 0%, var(--color-black) 100%);
+  color: var(--color-white);
+  box-shadow: 0 2px 4px rgba(11, 31, 59, 0.3);
 }
 .status-completed {
-  background: linear-gradient(135deg, #6f42c1 0%, #9c27b0 100%);
-  color: white;
-  font-weight: 600;
-  box-shadow: 0 2px 4px rgba(111, 66, 193, 0.3);
+  background: linear-gradient(135deg, var(--color-black) 0%, var(--color-navy) 100%);
+  color: var(--color-white);
+  box-shadow: 0 2px 4px rgba(11, 31, 59, 0.3);
 }
-.status-pending { background: #fff3cd; color: #664d03; }
-.status-accepted { background: #d1e7dd; color: #0f5132; }
-.status-rejected { background: #f8d7da; color: #842029; }
+.status-pending { background: rgba(254, 155, 6, 0.18); color: #a66900; }
+.status-accepted { background: rgba(11, 31, 59, 0.12); color: var(--color-navy); }
+.status-rejected { background: #000000; color: #ffffff; }
 .status-cancelled { background: #6c757d; color: white; }
 .status-replaced { background: #6c757d; color: white; }
 
@@ -556,7 +566,7 @@ body {
 
 .form-section h3 {
   margin-bottom: 1rem;
-  color: #667eea;
+  color: var(--color-gold);
 }
 
 .skill-input-group {
@@ -639,7 +649,7 @@ body {
 
 .modal-header h2 {
   margin: 0;
-  color: #333;
+  color: var(--color-gold);
 }
 
 .btn-close {
@@ -728,7 +738,7 @@ body {
   text-align: center;
   padding: 3rem;
   font-size: 1.2rem;
-  color: #667eea;
+  color: var(--color-gold);
 }
 
 /* Not Found */
@@ -782,7 +792,7 @@ body {
 
 .event-details-header h1 {
   margin-bottom: 0.5rem;
-  color: #1a1a2e;
+  color: var(--color-navy);
 }
 
 .event-meta {
