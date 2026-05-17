@@ -1,7 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Navigate, useParams } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 
-import indiaMapBg from './assets/india_earth_satellite_map.jpg';
 
 
 import Navbar from './components/Navbar';
@@ -29,8 +28,6 @@ import Profile from './pages/Profile';
 import TalentProfile from './pages/TalentProfile';
 
 import './App.css';
-import './styles/home.css';
-import './styles/venues.css';
 
 // Redirect helpers for legacy manager paths
 const ManagerEventRedirect = () => {
@@ -44,16 +41,13 @@ const ManagerEventTalentsRedirect = () => {
 
 function App() {
   return (
-    <Router>
+    <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
       <AuthProvider>
         <div className="app">
           <Navbar />
-          <main className="main-content"  style={{
-                  backgroundImage: `url(${indiaMapBg})`,
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center',
-                  backgroundAttachment: 'fixed'
-                }}>
+          <main className="flex-1 w-full bg-eventorz-navy relative overflow-hidden">
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-eventorz-violet/20 via-eventorz-navy to-eventorz-navy pointer-events-none"></div>
+            <div className="relative z-10">
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
@@ -151,6 +145,7 @@ function App() {
 
               <Route path="*" element={<div className="not-found">404 - Page Not Found</div>} />
             </Routes>
+            </div>
           </main>
           <Footer />
         </div>

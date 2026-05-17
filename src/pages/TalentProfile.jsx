@@ -43,7 +43,7 @@ const TalentProfile = () => {
       <div className="talent-profile-grid">
         <div className="talent-profile-left">
           {talent.profileImage ? (
-            <img src={talent.profileImage} alt={talent.name} className="profile-image" />
+            <img src={talent.profileImage} alt={talent.name} onError={(e) => { e.target.onerror = null; e.target.src = 'https://ui-avatars.com/api/?name=' + encodeURIComponent(talent.name) + '&background=random'; }} className="profile-image" />
           ) : (
             <div className="talent-avatar-large">{talent.name?.charAt(0)}</div>
           )}

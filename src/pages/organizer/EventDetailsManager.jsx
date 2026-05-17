@@ -123,7 +123,7 @@ const EventDetailsManager = () => {
             <div className="success-banner-icon">✓</div>
             <div className="success-banner-content">
               <h3>Event is Ready to Go!</h3>
-              <p>All talents have been confirmed and everything looks good. Click "Start Event" when the event begins.</p>
+              <p>All talents have been confirmed and everything looks good. Click &quot;Start Event&quot; when the event begins.</p>
             </div>
           </div>
         )}
@@ -134,7 +134,7 @@ const EventDetailsManager = () => {
             <div className="ongoing-banner-icon">▶</div>
             <div className="ongoing-banner-content">
               <h3>Event is Currently Ongoing</h3>
-              <p>The event is in progress. Click "Complete Event" when the event finishes.</p>
+              <p>The event is in progress. Click &quot;Complete Event&quot; when the event finishes.</p>
             </div>
           </div>
         )}
@@ -177,7 +177,7 @@ const EventDetailsManager = () => {
 
               {event.status !== 'completed' && (
                 <div className="review-pending-notice" style={{ marginTop: '1rem' }}>
-                  <p>📝 Can't review until event is done</p>
+                  <p>You haven&apos;t set any required talents yet.</p>
                 </div>
               )}
             </div>
@@ -293,9 +293,7 @@ const EventDetailsManager = () => {
             <div className="details-card">
               <h2>Recent Invitations</h2>
               {invitations.length === 0 ? (
-                <div className="empty-state-hint">
-                  No invitations sent yet. Start recruiting talents!
-                </div>
+                <p className="empty-state-text">No applicants yet. Share your event link to get &quot;discovered&quot;!</p>
               ) : (
                 <div className="recent-invitations-list">
                   {invitations.slice(0, 5).map((invitation) => (
