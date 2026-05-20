@@ -64,6 +64,7 @@ const Navbar = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-2">
+            <NavItem to="/" icon={HomeIcon}>Home</NavItem>
             <NavItem to="/venues" icon={MapPin}>Venues</NavItem>
             <NavItem to="/talents" icon={Mic2}>Talents</NavItem>
             
@@ -131,6 +132,7 @@ const Navbar = () => {
             className="md:hidden glass-panel border-t border-white/5 rounded-b-2xl rounded-t-none"
           >
             <div className="px-4 pt-2 pb-6 space-y-2">
+              <NavItem to="/" icon={HomeIcon}>Home</NavItem>
               <NavItem to="/venues" icon={MapPin}>Venues</NavItem>
               <NavItem to="/talents" icon={Mic2}>Talents</NavItem>
               

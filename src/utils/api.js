@@ -1,8 +1,18 @@
 import axios from 'axios';
 
 
+// Get base URL dynamically and sanitize trailing slash
+const getBaseURL = () => {
+  const envUrl = import.meta.env.VITE_API_URL || '';
+  if (!envUrl) {
+    return '/api';
+  }
+  return `${envUrl.replace(/\/$/, '')}/api`;
+};
+
 const API = axios.create({
-  baseURL: (import.meta.env.VITE_API_URL || '') + '/api'
+  baseURL: getBaseURL(),
+  withCredentials: true
 });
 
 // Add token to requests
